@@ -22,7 +22,7 @@ public class DesordenaPalabras : MonoBehaviour
         palabra3 = GameObject.Find("Text_Palabra3").GetComponent<TMP_Text>();
         compruebaInputs = GameObject.Find("MiniGamesManager").GetComponent<CompruebaInputs>();
         
-        //StartGame();
+        StartGame();
     }
 
     void StartGame()
@@ -37,24 +37,26 @@ public class DesordenaPalabras : MonoBehaviour
 
     public String DesordenarPalabra(string palabra)
     {
+        /*
+        string resultado = "OMG";
+        palabra = resultado;
+        return palabra;
+        */
+
         string resultado;
 
-        do
+        char[] letras = palabra.ToCharArray();
+
+        for (int i = letras.Length - 1; i > 0; i--)
         {
-            char[] letras = palabra.ToCharArray();
+            int j = UnityEngine.Random.Range(0, i + 1);
 
-            for (int i = letras.Length - 1; i > 0; i--)
-            {
-                int j = UnityEngine.Random.Range(0, i + 1);
+            char temp = letras[i];
+            letras[i] = letras[j];
+            letras[j] = temp;
+        }
 
-                char temp = letras[i];
-                letras[i] = letras[j];
-                letras[j] = temp;
-            }
-
-            resultado = new string(letras);
-
-        } while (resultado == palabra);
+        resultado = new string(letras);
 
         return resultado;
     }
