@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
+using TMPro;
 
 public class GraphicGame : MonoBehaviour
 {
@@ -11,11 +12,15 @@ public class GraphicGame : MonoBehaviour
     public Slider controlB;
     public Slider controlC;
 
-    [Header("Column Sliders (display only)")]
+    [Header("Column Sliders")]
     public Slider[] columns;
 
     [Header("Settings")]
-    public float tolerance = 0.15f;
+    public float tolerance = 0.02f;
+
+    [Header("Aviso")]
+    public TMP_Text avisoWin;
+    bool playerHasMoved;
 
     // Pesos: cada control afecta cada columna de forma distinta
     private readonly float[,] weights = new float[3, 4]
@@ -39,11 +44,26 @@ public class GraphicGame : MonoBehaviour
 
     private float[] currentValues = new float[4];
 
+    private void Start()
+    {
+        avisoWin.enabled = false;
+    }
+
     void Update()
     {
         if (!IsValid()) return;
         ComputeValues();
         UpdateColumnSliders();
+
+        if (!playerHasMoved)
+        {
+            if (controlA.value > 0.01f || controlB.value > 0.01f || controlC.value > 0.01f)
+                playerHasMoved = true;
+            else
+                return;
+        }
+
+        
         CheckWin();
     }
 
@@ -84,19 +104,36 @@ public class GraphicGame : MonoBehaviour
         float min = float.MaxValue;
         float max = float.MinValue;
 
-        for (int i = 0; i < currentValues.Length; i++)
+        for (int i = 0; i < columns.Length; i++)
         {
-            if (currentValues[i] < min) min = currentValues[i];
-            if (currentValues[i] > max) max = currentValues[i];
+            if (columns[i] == null) continue;
+            float val = columns[i].value;
+            Debug.Log($"Columna {i}: {val:F4}");  // ver valores reales
+            if (val < min) min = val;
+            if (val > max) max = val;
         }
 
         if (Mathf.Abs(max - min) < tolerance)
         {
             Debug.Log("SYSTEM STABILIZED - ACCESS GRANTED");
+            //Codigo de que ha ganado le mini juego
+            avisoWin.enabled = true;
+            LockAll();
         }
     }
 
+    void LockAll()
+    {
+        controlA.interactable = false;
+        controlB.interactable = false;
+        controlC.interactable = false;
 
+        foreach (Slider col in columns)
+        {
+            if (col != null)
+                col.interactable = false;
+        }
+    }
 
 
 }
