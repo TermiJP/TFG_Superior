@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -5,6 +6,8 @@ public class Window_UI : MonoBehaviour , IDragHandler , IPointerDownHandler
 {
 
     Vector3 MouseDragStartPos;
+
+    public GameObject window;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,5 +29,10 @@ public class Window_UI : MonoBehaviour , IDragHandler , IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         MouseDragStartPos = Input.mousePosition - transform.localPosition;
+    }
+
+    public void ExitWindow()
+    {
+        Destroy(window);
     }
 }
