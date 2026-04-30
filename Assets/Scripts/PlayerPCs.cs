@@ -24,6 +24,8 @@ public class PlayerPCs : NetworkBehaviour
     public float peligroHacker;
     public float facilidadhackeo;
     public List< GameObject> OrdenadoresEnJuego;
+
+
     public enum ProtectionState
     {
         SinProteccion,
@@ -41,6 +43,8 @@ public class PlayerPCs : NetworkBehaviour
     [SerializeField] TMP_Text Countries_Display;
     [SerializeField] TMP_Text P_Hacked_Display;
     [SerializeField] TMP_Text Found_Display;
+    [SerializeField] Image hackingWindow;
+    [SerializeField] Canvas alwaysCanvas;
     private CreateConnection connected;
     private GameObject newPC;
 
@@ -54,6 +58,7 @@ public class PlayerPCs : NetworkBehaviour
         Countries_Display = GameObject.Find("countries").GetComponent<TextMeshProUGUI>();
         P_Hacked_Display = GameObject.Find("hacked").GetComponent<TextMeshProUGUI>();
         Found_Display = GameObject.Find("found").GetComponent<TextMeshProUGUI>();
+        alwaysCanvas = GameObject.Find("ALWAYS_CANVAS").GetComponent<Canvas>();
         PC_TextAd.enabled = false;
         StartCoroutine(SumarPuntos());
     }
@@ -223,5 +228,10 @@ public class PlayerPCs : NetworkBehaviour
                 break;
  
         }
+    }
+
+    public void AbrirHacking()
+    {
+        Instantiate(hackingWindow , alwaysCanvas.transform);
     }
 }
