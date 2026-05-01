@@ -913,6 +913,7 @@ GameObject:
   - component: {fileID: 6374193747256977552}
   - component: {fileID: 482875739605001993}
   - component: {fileID: 3761717829077037137}
+  - component: {fileID: -7822714084315766632}
   m_Layer: 0
   m_Name: WINDOW_GRAPHIC
   m_TagString: Untagged
@@ -943,6 +944,7 @@ RectTransform:
   - {fileID: 261437676177915124}
   - {fileID: 710352087341644252}
   - {fileID: 205726595754943742}
+  - {fileID: 1816247314678714577}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1001,6 +1003,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Window_UI
   window: {fileID: 2376600106698072057}
+--- !u!114 &-7822714084315766632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2376600106698072057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c8564d54cec4845966ee85ca72d8e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GraphicGame
+  controlA: {fileID: 8637329591163465161}
+  controlB: {fileID: 856226140423225642}
+  controlC: {fileID: 6544280370120455167}
+  columns:
+  - {fileID: 3644609079501789798}
+  - {fileID: 8114611116099098124}
+  - {fileID: 2514513631185888269}
+  - {fileID: 3560864934853795893}
+  tolerance: 0.02
+  avisoWin: {fileID: 1810237614909268259}
 --- !u!1 &2565330030551584585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,6 +1400,64 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &4204805803418893561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1816247314678714577}
+  - component: {fileID: 2763441116137482315}
+  m_Layer: 0
+  m_Name: SCRIPT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1816247314678714577
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4204805803418893561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 868932583201474794}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2763441116137482315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4204805803418893561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c8564d54cec4845966ee85ca72d8e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GraphicGame
+  controlA: {fileID: 8637329591163465161}
+  controlB: {fileID: 856226140423225642}
+  controlC: {fileID: 6544280370120455167}
+  columns:
+  - {fileID: 3644609079501789798}
+  - {fileID: 8114611116099098124}
+  - {fileID: 2514513631185888269}
+  - {fileID: 3560864934853795893}
+  tolerance: 0.02
+  avisoWin: {fileID: 1810237614909268259}
 --- !u!1 &4314058623599362853
 GameObject:
   m_ObjectHideFlags: 0

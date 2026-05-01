@@ -43,10 +43,11 @@ public class PlayerPCs : NetworkBehaviour
     [SerializeField] TMP_Text Countries_Display;
     [SerializeField] TMP_Text P_Hacked_Display;
     [SerializeField] TMP_Text Found_Display;
-    [SerializeField] Image hackingWindow;
+    [SerializeField] Canvas  hackingWindow;
     [SerializeField] Canvas alwaysCanvas;
     private CreateConnection connected;
     private GameObject newPC;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -59,6 +60,7 @@ public class PlayerPCs : NetworkBehaviour
         P_Hacked_Display = GameObject.Find("hacked").GetComponent<TextMeshProUGUI>();
         Found_Display = GameObject.Find("found").GetComponent<TextMeshProUGUI>();
         alwaysCanvas = GameObject.Find("ALWAYS_CANVAS").GetComponent<Canvas>();
+        hackingWindow = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
         PC_TextAd.enabled = false;
         StartCoroutine(SumarPuntos());
     }
@@ -232,6 +234,7 @@ public class PlayerPCs : NetworkBehaviour
 
     public void AbrirHacking()
     {
-        Instantiate(hackingWindow , alwaysCanvas.transform);
+        hackingWindow.enabled = true;
+        
     }
 }

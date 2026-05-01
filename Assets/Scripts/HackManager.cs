@@ -10,10 +10,16 @@ using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCou
 public class HackManager : MonoBehaviour
 {
     [Header("Reference")]
-    [SerializeField] public Image ventana;
+    [SerializeField] public Canvas ventana;
     public String nameInput;
     public List<GameObject> Countries;
-    
+
+    private void Awake()
+    {
+        ventana  = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
+        ventana.enabled = false;
+    }
+
 
     void AbrirDesktop()
     {
@@ -82,6 +88,12 @@ public class HackManager : MonoBehaviour
         }
 
         
+    }
+
+    public void BuscarhackingCanvas()
+    {
+        ventana = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
+        if (ventana == null) Debug.Log("No esta el hacking"); 
     }
 
 }
