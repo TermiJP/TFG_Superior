@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Windows;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+using System.Globalization;
+using Unity.Netcode;
 
-public class HackManager : MonoBehaviour
+public class HackManager : NetworkBehaviour
 {
     [Header("Reference")]
     [SerializeField] public Canvas ventana;
@@ -16,11 +18,25 @@ public class HackManager : MonoBehaviour
     [SerializeField] public TMP_InputField inputName;
     [SerializeField] public TMP_InputField inputCountrie;
     public List<GameObject> Countries;
+    public GameObject foundCountry = null;
+    private PlayerPCs player;
 
     private void Awake()
     {
         ventana  = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
-       
+
+        //---------------------------------------------------------------------------
+        if (!IsOwner)
+        {
+            player = GameObject.Find("PLAYER_1").GetComponent<PlayerPCs>();
+        }
+        else
+        {
+            player = GameObject.Find("PLAYER_2").GetComponent<PlayerPCs>();
+        }
+
+        //----------------------------------------------------------------------------
+
         ventana.enabled = false;
     }
 
@@ -39,7 +55,7 @@ public class HackManager : MonoBehaviour
     {
         string countrie = inputCountrie.text;
 
-        GameObject foundCountry = null;
+       
 
         foreach (GameObject countryObj in Countries)
         {
@@ -68,6 +84,8 @@ public class HackManager : MonoBehaviour
         {
             Debug.Log("Encontre el pais");
             NameServerPC( nameInput ,foundCountry);
+            //AQUI TENGO QUE HACER EL BUILD PC
+            player.BuildPCServerRpc();
         }
     }
 
@@ -99,7 +117,7 @@ public class HackManager : MonoBehaviour
 
     public void BuscarhackingCanvas()
     {
-        ventana = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
+        ventana = GameObject.Find("Hacking_canvas").GetComponent<Canvas>(); 
         if (ventana == null) Debug.Log("No esta el hacking"); 
     }
 

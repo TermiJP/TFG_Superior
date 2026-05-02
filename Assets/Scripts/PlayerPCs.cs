@@ -47,6 +47,7 @@ public class PlayerPCs : NetworkBehaviour
     [SerializeField] Canvas alwaysCanvas;
     private CreateConnection connected;
     private GameObject newPC;
+    private HackManager hackManager;
 
     [Header("Mini Games")]
     [SerializeField] Canvas window_Graph;
@@ -65,6 +66,8 @@ public class PlayerPCs : NetworkBehaviour
         Found_Display = GameObject.Find("found").GetComponent<TextMeshProUGUI>();
         alwaysCanvas = GameObject.Find("ALWAYS_CANVAS").GetComponent<Canvas>();
         hackingWindow = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
+        hackManager = GameObject.Find("VentanaHacking").GetComponent<HackManager>();
+
         PC_TextAd.enabled = false;
         StartCoroutine(SumarPuntos());
     }
@@ -83,7 +86,7 @@ public class PlayerPCs : NetworkBehaviour
     void Update()
     {
         SelectUbicacion();
-        BuildPC();
+        //BuildPC();
         HandlePlayerInfo();
         HandleInputs();
 
@@ -111,10 +114,10 @@ public class PlayerPCs : NetworkBehaviour
         }
     } 
 
-    void BuildPC()
+    public void BuildPC()
     {
         BuildPCServerRpc();
-        
+        Debug.Log("Metodo build");
     }
 
     void HandlePlayerInfo()
@@ -144,40 +147,29 @@ public class PlayerPCs : NetworkBehaviour
     }
 
     [ServerRpc]
-    private void BuildPCServerRpc()
+    public void BuildPCServerRpc()
     {
-        if (Input.GetMouseButtonDown(0) && placingPC == true)
+        if (cantidadPcsSinPoner > 0)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); ////Cogemos la posicion en la pantalla del mouse
-            mousePos.z = 0f; //// Al tener 0 en Z va recto porque es 2D
-
-            Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero); //// Lo mismo que en 3D pero en 2D, en vez de camera forward, Z a 0 y en la posion mousePos
-
-            //// LO QUE PASA CUANDO LE DAS CLICK DERECHO -------------------------------------------
-
-            Debug.Log("Poniendo PC");
-
-            if (cantidadPcsSinPoner > 0)
+            cantidadPcsSinPoner--;
+            if( hackManager.foundCountry == null)
             {
-                cantidadPcsSinPoner--;
-
-                newPC = Instantiate(PC, mousePos, Quaternion.identity);
-                newPC.GetComponent<NetworkObject>().Spawn(true);
-                connected = GameObject.Find("LineCompound").GetComponent<CreateConnection>();
-                placingPC = false;
-                PC_TextAd.enabled = false;
-                AddPC(newPC);
-
-            }
-            else return;
-            PC_UI.text = "" + cantidadPcsSinPoner;
-            if (cantidadPcsSinPoner <= 4)
-            {
-                connected.AddObject(newPC.transform);
+                Debug.Log("No esta foundcountrie");
             }
 
+            newPC = Instantiate(PC, hackManager.foundCountry.transform.position, Quaternion.identity);
+            newPC.GetComponent<NetworkObject>().Spawn(true);
+            connected = GameObject.Find("LineCompound").GetComponent<CreateConnection>();
+            placingPC = false;
+            PC_TextAd.enabled = false;
+            AddPC(newPC);
+            Debug.Log("Esta puesto");
+        }
+        else return;
+        PC_UI.text = "" + cantidadPcsSinPoner;
+        if (cantidadPcsSinPoner <= 4)
+        {
+            connected.AddObject(newPC.transform);
         }
     }
 

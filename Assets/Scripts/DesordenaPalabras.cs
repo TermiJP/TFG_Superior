@@ -37,12 +37,7 @@ public class DesordenaPalabras : MonoBehaviour
 
     public String DesordenarPalabra(string palabra)
     {
-        /*
-        string resultado = "OMG";
-        palabra = resultado;
-        return palabra;
-        */
-
+       
         string resultado;
 
         char[] letras = palabra.ToCharArray();
