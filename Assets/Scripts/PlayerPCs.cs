@@ -1,7 +1,7 @@
 using System.Transactions;
 using TMPro;
 using Unity.Netcode;
-using Unity.VisualScripting;
+using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,15 +47,19 @@ public class PlayerPCs : NetworkBehaviour
     [SerializeField] Canvas alwaysCanvas;
     private CreateConnection connected;
     private GameObject newPC;
-    
+
+    [Header("Mini Games")]
+    [SerializeField] Canvas window_Graph;
+    [SerializeField] Canvas window_Word;
+    [SerializeField] Canvas window_Text;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         cam = Camera.main;
         PC_UI = GameObject.Find("CantidadOrdenadores").GetComponent<TextMeshProUGUI>();
         PC_TextAd = GameObject.Find("Placing PCs Adverstisemnet").GetComponent<TextMeshProUGUI>();
-        XP_Display = GameObject.Find("xp").GetComponent <TextMeshProUGUI>();
+        XP_Display = GameObject.Find("xp").GetComponent<TextMeshProUGUI>();
         Countries_Display = GameObject.Find("countries").GetComponent<TextMeshProUGUI>();
         P_Hacked_Display = GameObject.Find("hacked").GetComponent<TextMeshProUGUI>();
         Found_Display = GameObject.Find("found").GetComponent<TextMeshProUGUI>();
@@ -82,6 +86,8 @@ public class PlayerPCs : NetworkBehaviour
         BuildPC();
         HandlePlayerInfo();
         HandleInputs();
+
+        
     }
 
     void SelectUbicacion()
@@ -125,10 +131,15 @@ public class PlayerPCs : NetworkBehaviour
 
     void HandleInputs()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.AltGr))
         {
             placingPC = true;
             PC_TextAd.enabled = true;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            Debug.Log("pene pene ");
+            StartMinigame();
         }
     }
 
@@ -236,5 +247,14 @@ public class PlayerPCs : NetworkBehaviour
     {
         hackingWindow.enabled = true;
         
+    }
+
+    public void StartMinigame()
+    {
+        Instantiate(window_Graph);
+        Instantiate(window_Word);
+        Instantiate(window_Text);
+
+        Debug.Log("Le estoy dando ");
     }
 }

@@ -11,7 +11,7 @@ public class TextCreation : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] Canvas PVPCanvas;
-    [SerializeField] Image VentanaText;
+    
     [SerializeField] TMP_Text textPVP;
     [SerializeField] private TMP_InputField inputField;
     public string CodigoCorrecto;

@@ -352,10 +352,10 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3701244524492193265}
         m_TargetAssemblyTypeName: HackManager, Assembly-CSharp
         m_MethodName: CheckNameServer
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -552,6 +552,7 @@ GameObject:
   - component: {fileID: 4027035968940049383}
   - component: {fileID: 3139127657698640271}
   - component: {fileID: 3262429393824497611}
+  - component: {fileID: 3701244524492193265}
   m_Layer: 0
   m_Name: VentanaHacking
   m_TagString: Untagged
@@ -580,7 +581,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -114.01172, y: 18}
+  m_AnchoredPosition: {x: 439, y: 18}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4027035968940049383
@@ -634,6 +635,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Window_UI
   window: {fileID: 1683460566008949122}
+--- !u!114 &3701244524492193265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683460566008949122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e95fc9a18e3c14abb5a41d3e248f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HackManager
+  ventana: {fileID: 7764423602923838178}
+  nameInput: 
+  countrieinpu: 
+  inputName: {fileID: 0}
+  inputCountrie: {fileID: 0}
+  Countries:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1812835056416031006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1170,10 +1191,10 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3701244524492193265}
         m_TargetAssemblyTypeName: HackManager, Assembly-CSharp
         m_MethodName: CheckCountrie
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

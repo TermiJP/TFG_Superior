@@ -12,11 +12,15 @@ public class HackManager : MonoBehaviour
     [Header("Reference")]
     [SerializeField] public Canvas ventana;
     public String nameInput;
+    public String countrieinpu;
+    [SerializeField] public TMP_InputField inputName;
+    [SerializeField] public TMP_InputField inputCountrie;
     public List<GameObject> Countries;
 
     private void Awake()
     {
         ventana  = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
+       
         ventana.enabled = false;
     }
 
@@ -31,8 +35,10 @@ public class HackManager : MonoBehaviour
         ventana.enabled = false;
     }
 
-    public void CheckCountrie( string countrie)
+    public void CheckCountrie()
     {
+        string countrie = inputCountrie.text;
+
         GameObject foundCountry = null;
 
         foreach (GameObject countryObj in Countries)
@@ -72,8 +78,9 @@ public class HackManager : MonoBehaviour
         
     }
 
-    public void CheckNameServer( string name )
+    public void CheckNameServer()
     {
+        string name = inputName.text;
         if (name.Length == 0)
         {
             // Enseñar error

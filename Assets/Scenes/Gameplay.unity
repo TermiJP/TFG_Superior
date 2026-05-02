@@ -418,6 +418,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
+--- !u!114 &215669518 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7464814256112790212, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3722532202658598101}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,6 +1111,9 @@ MonoBehaviour:
   hackingWindow: {fileID: 349873201863752004, guid: 9025b09bb39ba164f8d05965383516b3,
     type: 3}
   alwaysCanvas: {fileID: 0}
+  window_Graph: {fileID: 0}
+  window_Word: {fileID: 0}
+  window_Text: {fileID: 0}
 --- !u!114 &420640538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1439,7 +1454,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -5191566}
+  m_AnchoredPosition: {x: 0, y: -5565474.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &664738464
@@ -1621,6 +1636,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 673881071}
   m_CullTransparentMesh: 1
+--- !u!1 &705933758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 705933759}
+  m_Layer: 0
+  m_Name: France
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &705933759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705933758}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.16, y: 9.18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2113072678}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &772954399
 GameObject:
   m_ObjectHideFlags: 0
@@ -2253,7 +2299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &934376534
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3965,6 +4011,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561901323}
   m_CullTransparentMesh: 1
+--- !u!114 &1587395382 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2669049439123548798, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3722532202658598101}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!1 &1620598798
 GameObject:
   m_ObjectHideFlags: 0
@@ -4067,13 +4125,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620598798}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4288,7 +4346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.37360162, g: 0.8301887, b: 0.27803493, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4379,13 +4437,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706756021}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b052072b0d591b74f9b97ff663fe78cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TextCreation
   PVPCanvas: {fileID: 0}
-  VentanaText: {fileID: 0}
   textPVP: {fileID: 0}
   inputField: {fileID: 0}
   CodigoCorrecto: 
@@ -4791,6 +4848,12 @@ MonoBehaviour:
   hackingWindow: {fileID: 349873201863752004, guid: 9025b09bb39ba164f8d05965383516b3,
     type: 3}
   alwaysCanvas: {fileID: 0}
+  window_Graph: {fileID: 1022465990885960887, guid: 1db91e4f66d01194ea48980298ba4870,
+    type: 3}
+  window_Word: {fileID: 9022396872954174364, guid: e1da3b6637bf62e4ebd0c87f3e66420e,
+    type: 3}
+  window_Text: {fileID: 6378931292554027921, guid: 0f640e6bc1a69ab47a213223d0de915d,
+    type: 3}
 --- !u!1 &1924208390
 GameObject:
   m_ObjectHideFlags: 0
@@ -5804,7 +5867,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2113072678}
-  - component: {fileID: 2113072677}
   m_Layer: 0
   m_Name: PaisesList
   m_TagString: Untagged
@@ -5812,22 +5874,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2113072677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2113072676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97e95fc9a18e3c14abb5a41d3e248f53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HackManager
-  ventana: {fileID: 7764423602923838178, guid: 71b2dc3b58ec72844948fe0ad95a4da6, type: 3}
-  nameInput: 
-  Countries:
-  - {fileID: 505108506}
 --- !u!4 &2113072678
 Transform:
   m_ObjectHideFlags: 0
@@ -5842,6 +5888,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 505108507}
+  - {fileID: 705933759}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2139830946
@@ -6089,30 +6136,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1996036756513493542, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
+    - target: {fileID: 3701244524492193265, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
         type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 439
-      objectReference: {fileID: 0}
-    - target: {fileID: 2669049439123548798, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: inputName
       value: 
-      objectReference: {fileID: 2113072677}
-    - target: {fileID: 7464814256112790212, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
+      objectReference: {fileID: 215669518}
+    - target: {fileID: 3701244524492193265, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
         type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: inputCountrie
       value: 
-      objectReference: {fileID: 2113072677}
+      objectReference: {fileID: 1587395382}
+    - target: {fileID: 3701244524492193265, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
+        type: 3}
+      propertyPath: 'Countries.Array.data[0]'
+      value: 
+      objectReference: {fileID: 505108506}
+    - target: {fileID: 3701244524492193265, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
+        type: 3}
+      propertyPath: 'Countries.Array.data[1]'
+      value: 
+      objectReference: {fileID: 705933758}
     - target: {fileID: 7495045291673939119, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
         type: 3}
       propertyPath: m_Name
       value: Hacking_canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7495045291673939119, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
