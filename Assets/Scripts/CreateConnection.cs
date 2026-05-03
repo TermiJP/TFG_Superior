@@ -46,6 +46,7 @@ public class CreateConnection : NetworkBehaviour
             newLine = Instantiate(connectionPrefab);
             newLine.GetComponent<NetworkObject>().Spawn(true);
             lineRenderer = newLine.GetComponent<LineRenderer>();
+            lineRenderer.material = connectionMat;
             AsignTarget(lineRenderer, origin.position, pc);
         }
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043327339266a5c4bbe9745e3faf83a8, type: 3}
   m_Name: XP_Gain 1
   m_EditorClassIdentifier: Assembly-CSharp::MejoraXP
-  sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  sprite: {fileID: 21300000, guid: 83e6340d212600b4fa5d4905ae094cfa, type: 3}
   NameMejora: XP
   Cost: 10
   Description: Una mejora de +1 por ordendor

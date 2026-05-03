@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a8024a77c9b454ebaf7b4bcd21cb8f, type: 3}
   m_Name: Protect_Gain 2
   m_EditorClassIdentifier: Assembly-CSharp::MejoraProteccion
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 74c4dd7e70dc2ca45bca1618df6947c3, type: 3}
   NameMejora: 
   Cost: 0
   Description: 
