@@ -173,6 +173,12 @@ public class PlayerPCs : NetworkBehaviour
         }
     }
 
+    public void CheckPCName( string name )
+    {
+        PC script = PC.GetComponent<PC>();
+        script.continentName = name;
+    }
+
     void AddPC( GameObject pc )
     {
         OrdenadoresEnJuego.Add( pc );

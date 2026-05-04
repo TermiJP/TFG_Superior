@@ -86,6 +86,8 @@ public class HackManager : NetworkBehaviour
             NameServerPC( nameInput ,foundCountry);
             //AQUI TENGO QUE HACER EL BUILD PC
             player.BuildPCServerRpc();
+            
+            player.CheckPCName(countrie);
         }
     }
 
