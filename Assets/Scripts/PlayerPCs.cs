@@ -58,7 +58,6 @@ public class PlayerPCs : NetworkBehaviour
     private void Start()
     {
         cam = Camera.main;
-        
         PC_UI = GameObject.Find("CantidadOrdenadores").GetComponent<TextMeshProUGUI>();
         PC_TextAd = GameObject.Find("Placing PCs Adverstisemnet").GetComponent<TextMeshProUGUI>();
         XP_Display = GameObject.Find("xp").GetComponent<TextMeshProUGUI>();
@@ -172,12 +171,6 @@ public class PlayerPCs : NetworkBehaviour
         {
             connected.AddObject(newPC.transform);
         }
-    }
-
-    public void CheckPCName( string name )
-    {
-        PC script = PC.GetComponent<PC>();
-        script.continentName = name;
     }
 
     void AddPC( GameObject pc )

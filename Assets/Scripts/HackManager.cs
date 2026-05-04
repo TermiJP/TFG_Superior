@@ -20,7 +20,6 @@ public class HackManager : NetworkBehaviour
     public List<GameObject> Countries;
     public GameObject foundCountry = null;
     private PlayerPCs player;
-    
 
     private void Awake()
     {
@@ -87,7 +86,6 @@ public class HackManager : NetworkBehaviour
             NameServerPC( nameInput ,foundCountry);
             //AQUI TENGO QUE HACER EL BUILD PC
             player.BuildPCServerRpc();
-            player.CheckPCName(countrie);
         }
     }
 
