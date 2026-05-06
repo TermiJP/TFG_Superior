@@ -94,7 +94,8 @@ public class HackManager : NetworkBehaviour
     public void NameServerPC( string name , GameObject obj)
     {
         
-        obj.name = name;
+       //Cambiar nombre del hack
+       
         
     }
 
