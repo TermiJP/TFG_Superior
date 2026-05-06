@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ordenador
   - PAIS
+  - Country
   layers:
   - Default
   - TransparentFX

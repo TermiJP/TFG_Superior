@@ -18,7 +18,7 @@ public class HackManager : NetworkBehaviour
     [SerializeField] public TMP_InputField inputName;
     [SerializeField] public TMP_InputField inputCountrie;
     public List<GameObject> Countries;
-    public GameObject foundCountry = null;
+    [HideInInspector] public GameObject foundCountry;
     private PlayerPCs player;
 
     private void Awake()
@@ -27,19 +27,19 @@ public class HackManager : NetworkBehaviour
 
         //---------------------------------------------------------------------------
         if (!IsOwner)
-        {
             player = GameObject.Find("PLAYER_1").GetComponent<PlayerPCs>();
-        }
         else
-        {
             player = GameObject.Find("PLAYER_2").GetComponent<PlayerPCs>();
-        }
 
         //----------------------------------------------------------------------------
 
         ventana.enabled = false;
     }
+    public override void OnNetworkSpawn()
+    {
+        Countries = new List<GameObject>(GameObject.FindGameObjectsWithTag("Country"));
 
+    }
 
     void AbrirDesktop()
     {
@@ -53,6 +53,7 @@ public class HackManager : NetworkBehaviour
 
     public void CheckCountrie()
     {
+        foundCountry = null;
         string countrie = inputCountrie.text;
 
        
@@ -85,9 +86,12 @@ public class HackManager : NetworkBehaviour
             Debug.Log("Encontre el pais");
             NameServerPC( nameInput ,foundCountry);
             //AQUI TENGO QUE HACER EL BUILD PC
-            player.BuildPCServerRpc();
+            player.BuildPCServerRpc(foundCountry.transform.position);
             
             player.CheckPCName(countrie);
+        } else
+        {
+            Debug.Log("No esta countrie");
         }
     }
 

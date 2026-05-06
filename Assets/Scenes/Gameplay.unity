@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 42710343}
   m_Layer: 0
   m_Name: Africa
-  m_TagString: Untagged
+  m_TagString: Country
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 78471386}
   m_Layer: 0
   m_Name: Asia
-  m_TagString: Untagged
+  m_TagString: Country
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 133428722}
   m_Layer: 0
   m_Name: Antartida
-  m_TagString: Untagged
+  m_TagString: Country
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -511,18 +511,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
---- !u!114 &215669518 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7464814256112790212, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
-    type: 3}
-  m_PrefabInstance: {fileID: 3722532202658598101}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,7 +1327,7 @@ GameObject:
   - component: {fileID: 505108507}
   m_Layer: 0
   m_Name: Europe
-  m_TagString: Untagged
+  m_TagString: Country
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1547,7 +1535,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -7934894.5}
+  m_AnchoredPosition: {x: 0, y: -8048800.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &664738464
@@ -2203,37 +2191,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904006795}
   m_CullTransparentMesh: 1
---- !u!1 &908494954 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1683460566008949122, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
-    type: 3}
-  m_PrefabInstance: {fileID: 3722532202658598101}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &908494960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908494954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1281925256
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!1 &911705275
 GameObject:
   m_ObjectHideFlags: 0
@@ -2489,7 +2446,7 @@ GameObject:
   - component: {fileID: 938368802}
   m_Layer: 0
   m_Name: Latino America
-  m_TagString: Untagged
+  m_TagString: Country
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2784,7 +2741,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1011621107}
-    PlayerPrefab: {fileID: 0}
+    PlayerPrefab: {fileID: 1820451758}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: 9cf5d1c0edf6c2b4f8547c4227824020, type: 2}
@@ -4157,18 +4114,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561901323}
   m_CullTransparentMesh: 1
---- !u!114 &1587395382 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2669049439123548798, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
-    type: 3}
-  m_PrefabInstance: {fileID: 3722532202658598101}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!1 &1620598798
 GameObject:
   m_ObjectHideFlags: 0
@@ -4313,7 +4258,7 @@ GameObject:
   - component: {fileID: 1673882890}
   m_Layer: 0
   m_Name: Oceania
-  m_TagString: Untagged
+  m_TagString: Country
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4557,7 +4502,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1706756023}
   - component: {fileID: 1706756022}
-  - component: {fileID: 1706756026}
   m_Layer: 0
   m_Name: MiniGamesManager
   m_TagString: Untagged
@@ -4605,31 +4549,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1706756026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1706756021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e5dcd175251c848a791e71170e0bbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CompruebaInputs
-  stringWord1: 
-  stringWord2: 
-  stringWord3: 
-  CodigoGood: 
-  Words:
-  - Ciber
-  - Seguridad
-  - SQL
-  - Python
-  - JavaScript
-  Word1Good: 
-  Word2Good: 
-  Word3Good: 
 --- !u!1001 &1747380202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6093,7 +6012,7 @@ GameObject:
   - component: {fileID: 2131481073}
   m_Layer: 0
   m_Name: America
-  m_TagString: Untagged
+  m_TagString: Country
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6360,21 +6279,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3701244524492193265, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
         type: 3}
-      propertyPath: inputName
-      value: 
-      objectReference: {fileID: 215669518}
-    - target: {fileID: 3701244524492193265, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
-        type: 3}
-      propertyPath: inputCountrie
-      value: 
-      objectReference: {fileID: 1587395382}
-    - target: {fileID: 3701244524492193265, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
-        type: 3}
-      propertyPath: Countries.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3701244524492193265, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
-        type: 3}
       propertyPath: 'Countries.Array.data[0]'
       value: 
       objectReference: {fileID: 505108506}
@@ -6408,6 +6312,26 @@ PrefabInstance:
       propertyPath: 'Countries.Array.data[6]'
       value: 
       objectReference: {fileID: 1673882889}
+    - target: {fileID: 4696717121609900516, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 959014575
+      objectReference: {fileID: 0}
+    - target: {fileID: 4696717121609900516, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1979216173
+      objectReference: {fileID: 0}
+    - target: {fileID: 5225952989796789058, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2482841008
+      objectReference: {fileID: 0}
+    - target: {fileID: 5225952989796789058, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1979216173
+      objectReference: {fileID: 0}
     - target: {fileID: 7495045291673939119, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
         type: 3}
       propertyPath: m_Name
@@ -6416,11 +6340,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1683460566008949122, guid: 71b2dc3b58ec72844948fe0ad95a4da6,
-        type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 908494960}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71b2dc3b58ec72844948fe0ad95a4da6, type: 3}
 --- !u!1001 &5572294946594286120
 PrefabInstance:

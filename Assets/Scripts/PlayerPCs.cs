@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class PlayerPCs : NetworkBehaviour
 {
@@ -116,7 +117,7 @@ public class PlayerPCs : NetworkBehaviour
 
     public void BuildPC()
     {
-        BuildPCServerRpc();
+        //BuildPCServerRpc();
         Debug.Log("Metodo build");
     }
 
@@ -146,8 +147,8 @@ public class PlayerPCs : NetworkBehaviour
         }
     }
 
-    [ServerRpc]
-    public void BuildPCServerRpc()
+    [Rpc(SendTo.Server)]
+    public void BuildPCServerRpc(Vector3 position)
     {
         if (cantidadPcsSinPoner > 0)
         {
@@ -157,7 +158,7 @@ public class PlayerPCs : NetworkBehaviour
                 Debug.Log("No esta foundcountrie");
             }
 
-            newPC = Instantiate(PC, hackManager.foundCountry.transform.position, Quaternion.identity);
+            newPC = Instantiate(PC, position, Quaternion.identity);
             newPC.GetComponent<NetworkObject>().Spawn(true);
             connected = GameObject.Find("LineCompound").GetComponent<CreateConnection>();
             placingPC = false;
