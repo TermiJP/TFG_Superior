@@ -26,7 +26,7 @@ public class HackManager : NetworkBehaviour
         ventana  = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
 
         //---------------------------------------------------------------------------
-        if (!IsOwner)
+        if (IsOwner)
             player = GameObject.Find("PLAYER_1").GetComponent<PlayerPCs>();
         else
             player = GameObject.Find("PLAYER_2").GetComponent<PlayerPCs>();
@@ -41,14 +41,16 @@ public class HackManager : NetworkBehaviour
 
     }
 
-    void AbrirDesktop()
+    public void AbrirDesktop()
     {
         ventana.enabled = true;
+        Debug.Log("Abrir ventana");
     }
 
-    void ExitDesktop()
+    public void ExitDesktop()
     {
         ventana.enabled = false;
+        Debug.Log(" Existir ventana ");
     }
 
     public void CheckCountrie()
@@ -122,10 +124,12 @@ public class HackManager : NetworkBehaviour
         
     }
 
-    public void BuscarhackingCanvas()
+    private void Update()
     {
-        ventana = GameObject.Find("Hacking_canvas").GetComponent<Canvas>(); 
-        if (ventana == null) Debug.Log("No esta el hacking"); 
+       if ( ventana == null )
+       {
+            Debug.Log("No esta ventanahacking");
+       }
     }
 
 }

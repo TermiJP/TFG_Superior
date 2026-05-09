@@ -2498,6 +2498,7 @@ GameObject:
   - component: {fileID: 1445992952283920575}
   - component: {fileID: 8297008310033245334}
   - component: {fileID: 2622571756752889645}
+  - component: {fileID: 80319009613838502}
   m_Layer: 0
   m_Name: WINDOW_WORD
   m_TagString: Untagged
@@ -2584,6 +2585,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Window_UI
   window: {fileID: 7632970278491310296}
+--- !u!114 &80319009613838502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7632970278491310296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c2e2a37b40b7a4099b052e59ceeba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DesordenaPalabras
+  palabra1: {fileID: 3191992802935803365}
+  palabra2: {fileID: 5376279387739294801}
+  palabra3: {fileID: 1587497300782273711}
+  stringWord1: 
+  stringWord2: 
+  stringWord3: 
+  CodigoGood: 
+  Words:
+  - Ciber
+  - Python
+  - Hacker
+  - Javascript
+  Word1Good: 
+  Word2Good: 
+  Word3Good: 
 --- !u!1 &7897741599643270376
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,13 +18,11 @@ public class CompruebaInputs : MonoBehaviour
     public String Word2Good;
     public String Word3Good;
 
-    private TextCreation textCrea;
-
+    
     private void Start()
     {
         ObtenerTresPalabras(out stringWord1, out stringWord2, out stringWord3);
-        textCrea = GameObject.Find("MiniGamesManager").GetComponent<TextCreation>();
-        CodigoGood = textCrea.CodigoCorrecto;
+        
     }
 
     void Update()

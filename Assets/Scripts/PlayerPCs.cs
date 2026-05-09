@@ -245,7 +245,7 @@ public class PlayerPCs : NetworkBehaviour
     public void AbrirHacking()
     {
         hackingWindow.enabled = true;
-        
+        Debug.Log("Abrir Hack");
     }
 
     public void StartMinigame()

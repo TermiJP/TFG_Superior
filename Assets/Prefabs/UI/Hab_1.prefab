@@ -1331,6 +1331,7 @@ GameObject:
   - component: {fileID: 29693753222558144}
   - component: {fileID: 8367537848348033148}
   - component: {fileID: 5529116153705581438}
+  - component: {fileID: 8460990816485586448}
   - component: {fileID: 3634560078983397916}
   - component: {fileID: 6874690989218055105}
   m_Layer: 0
@@ -1403,6 +1404,31 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8460990816485586448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7982291962318495366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 2501359823
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &3634560078983397916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1415,6 +1441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51771d9494bcba14482e2339461b7869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MejoraDisplay
+  ShowTopMostFoldoutHeaderGroup: 1
   mejoraData: {fileID: 11400000, guid: 6f9208d6a8dc51c4eb989ade76ea42cd, type: 2}
   spriteDisplay: {fileID: 3662168691038864659}
   textDisplayName: {fileID: 1079489359610830209}
