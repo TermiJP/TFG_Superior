@@ -155,7 +155,7 @@ public class PlayerPCs : NetworkBehaviour
             cantidadPcsSinPoner--;
             if( hackManager.foundCountry == null)
             {
-                Debug.Log("No esta foundcountrie");
+                Debug.LogWarning("No esta foundcountrie");
             }
 
             newPC = Instantiate(PC, position, Quaternion.identity);

@@ -8,7 +8,7 @@ public class Window_UI : MonoBehaviour , IDragHandler , IPointerDownHandler , IP
 
     Vector3 MouseDragStartPos;
     Vector3 original;
-    private bool yaEscalado = false;
+    
     public float factorEscala = 1.1f; // 10% más grande
     public GameObject window;
 
