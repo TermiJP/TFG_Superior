@@ -135,11 +135,7 @@ public class PlayerPCs : NetworkBehaviour
 
     void HandleInputs()
     {
-        if (Input.GetKeyDown(KeyCode.AltGr))
-        {
-            placingPC = true;
-            PC_TextAd.enabled = true;
-        }
+        
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             Debug.Log("pene pene ");
@@ -250,9 +246,14 @@ public class PlayerPCs : NetworkBehaviour
 
     public void StartMinigame()
     {
-        Instantiate(window_Graph);
-        Instantiate(window_Word);
-        Instantiate(window_Text);
+        var graph = Instantiate(window_Graph);
+        graph.GetComponent<NetworkObject>().Spawn();
+
+        var word = Instantiate(window_Word);
+        word.GetComponent<NetworkObject>().Spawn();
+
+        var text = Instantiate(window_Text);
+        text.GetComponent<NetworkObject>().Spawn();
 
         Debug.Log("Le estoy dando ");
     }
