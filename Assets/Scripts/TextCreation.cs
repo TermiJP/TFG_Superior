@@ -17,21 +17,21 @@ public class TextCreation : MonoBehaviour
     public string CodigoCorrecto;
     public string CodigoPersonal;
     public string textoFinal;
+    public TMP_Text avisoWin;
 
     private void Awake()
     {
         PVPCanvas = GetComponent<Canvas>();
         inputField = GameObject.Find("InputText").GetComponent<TMP_InputField>();
-        
+        avisoWin.enabled = false;
         AbrirVentanaPvP();
         
     }
 
     private void Update()
     {
-        //CodigoCorrecto = textoFinal;
-        //ElegirCodigo(GenerateRandomText());
         CodigoPersonal = inputField.text;
+        CheckAnswers();
     }
 
     void AbrirVentanaPvP()
@@ -87,7 +87,13 @@ public class TextCreation : MonoBehaviour
     {
         if ( CodigoCorrecto == CodigoPersonal )
         {
-
+            LockAll();
         }
+    }
+
+    void LockAll()
+    {
+        inputField.interactable = false;
+        avisoWin.enabled = true;
     }
 }

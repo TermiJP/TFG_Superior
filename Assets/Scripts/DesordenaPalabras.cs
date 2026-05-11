@@ -6,6 +6,7 @@ using NUnit.Framework.Internal;
 using System.IO.Compression;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class DesordenaPalabras : MonoBehaviour
 {
@@ -13,7 +14,12 @@ public class DesordenaPalabras : MonoBehaviour
     [SerializeField] private TMP_Text palabra1;
     [SerializeField] private TMP_Text palabra2;
     [SerializeField] private TMP_Text palabra3;
-    
+
+    [SerializeField] private TMP_InputField answer1;
+    [SerializeField] private TMP_InputField answer2;
+    [SerializeField] private TMP_InputField answer3;
+    public TMP_Text avisoWin;
+
 
     String stringCodigo;
     public String stringWord1;
@@ -25,9 +31,15 @@ public class DesordenaPalabras : MonoBehaviour
     public String Word1Good;
     public String Word2Good;
     public String Word3Good;
+
+    public bool bien1;
+    public bool bien2;
+    public bool bien3;
+
     private void Awake()
     {
-        
+        avisoWin.enabled = false;
+
     }
 
     private void Start()
@@ -36,6 +48,8 @@ public class DesordenaPalabras : MonoBehaviour
         palabra1 = GameObject.Find("Text_Palabra1").GetComponent<TMP_Text>();
         palabra2 = GameObject.Find("Text_Palabra2").GetComponent<TMP_Text>();
         palabra3 = GameObject.Find("Text_Palabra3").GetComponent<TMP_Text>();
+
+        
 
         ObtenerTresPalabras(out stringWord1, out stringWord2, out stringWord3);
         StartGame();
@@ -70,12 +84,13 @@ public class DesordenaPalabras : MonoBehaviour
         return resultado;
     }
 
-
-
-    
     void Update()
     {
-        // CodigoGood = textCrea.CodigoCorrecto;
+        Word1Good = answer1.text;
+        Word2Good = answer2.text;
+        Word3Good = answer3.text;
+
+        CheckResults();
     }
 
 
@@ -102,8 +117,9 @@ public class DesordenaPalabras : MonoBehaviour
         }
     }
 
-    public void ReadPalabra1(string palabra)
+    public void ReadPalabra1()
     {
+        string palabra = answer1.text;
         if (palabra.Length == 0)
         {
             // Enseñar error
@@ -120,13 +136,14 @@ public class DesordenaPalabras : MonoBehaviour
         if (Word1Good == stringWord1)
         {
             Debug.Log("Palabra correcto ");
+            bien1 = true;
         }
 
     }
 
-    public void ReadPalabra2(string palabra)
+    public void ReadPalabra2()
     {
-
+        string palabra = answer2.text;
         if (palabra.Length == 0)
         {
             // Enseñar error
@@ -143,13 +160,14 @@ public class DesordenaPalabras : MonoBehaviour
         if (Word2Good == stringWord2)
         {
             Debug.Log("Palabra correcto ");
+            bien2 = true;
         }
 
     }
 
-    public void ReadPalabra3(string palabra)
+    public void ReadPalabra3()
     {
-
+        string palabra = answer3.text;
         if (palabra.Length == 0)
         {
             // Enseñar error
@@ -166,6 +184,7 @@ public class DesordenaPalabras : MonoBehaviour
         if (Word3Good == stringWord3)
         {
             Debug.Log("Palabra correcto ");
+            bien3 = true;
         }
 
     }
@@ -199,5 +218,21 @@ public class DesordenaPalabras : MonoBehaviour
         a = Words[i1];
         b = Words[i2];
         c = Words[i3];
+    }
+
+    void LockAll()
+    {
+        answer1.interactable = false;
+        answer2.interactable = false;
+        answer3.interactable = false;
+        avisoWin.enabled = true;
+    }
+
+    void CheckResults()
+    {
+        if( bien1 == true && bien2 == true && bien3 == true)
+        {
+            LockAll();
+        }
     }
 }

@@ -108,14 +108,14 @@ public class GraphicGame : MonoBehaviour
         {
             if (columns[i] == null) continue;
             float val = columns[i].value;
-            Debug.Log($"Columna {i}: {val:F4}");  // ver valores reales
+            //Debug.Log($"Columna {i}: {val:F4}");  // ver valores reales
             if (val < min) min = val;
             if (val > max) max = val;
         }
 
         if (Mathf.Abs(max - min) < tolerance)
         {
-            Debug.Log("SYSTEM STABILIZED - ACCESS GRANTED");
+            //Debug.Log("SYSTEM STABILIZED - ACCESS GRANTED");
             //Codigo de que ha ganado le mini juego
             avisoWin.enabled = true;
             LockAll();
