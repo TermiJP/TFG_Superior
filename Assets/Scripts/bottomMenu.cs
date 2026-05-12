@@ -47,6 +47,8 @@ public class bottomMenu : MonoBehaviour , IPointerDownHandler , IPointerEnterHan
             case TipoBottom.Multiplayer:
                 var lobbyCanvas= GameObject.Find("LobbyCanvas").GetComponent<Canvas>();
                 lobbyCanvas.enabled = true;
+                var lobby = GameObject.Find("LobbyCanvas").GetComponent<Animator>();
+                lobby.SetBool("Awake", true);
                 var menuCanvas= GameObject.Find("Menu").GetComponent<Canvas>();
                 menuCanvas.enabled = false;
                 break;
