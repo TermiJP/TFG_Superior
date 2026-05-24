@@ -12,7 +12,7 @@ public class LobbyManager : MonoBehaviour
     [SerializeField] private GameObject clientUI;
     [SerializeField] private TextMeshProUGUI lobbyCodeText;
     [SerializeField] private TextMeshProUGUI playerListText;
-    [SerializeField] private InputField joinCodeInput;
+    [SerializeField] private TMP_InputField joinCodeInput;
     [SerializeField] private Button createButton;
     [SerializeField] private Button joinButton;
     [SerializeField] private Button startButton;
@@ -57,8 +57,7 @@ public class LobbyManager : MonoBehaviour
 
         Debug.Log($" Lobby creado. Código: {lobbyCode}");
 
-        // Actualizar lista de jugadores
-        UpdatePlayerList();
+        
     }
 
     // ========== CLIENT ==========
@@ -97,31 +96,15 @@ public class LobbyManager : MonoBehaviour
             UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
 
-    // ========== ACTUALIZAR LISTA DE JUGADORES ==========
-    private void UpdatePlayerList()
-    {
-        /*
-        playersInLobby.Clear();
-        playersInLobby.Add($"Host ({NetworkManager.Singleton.LocalClientId})");
-
-        foreach (var client in NetworkManager.Singleton.ConnectedClientsIds)
-        {
-            if (client != NetworkManager.ServerClientId)
-            {
-                playersInLobby.Add($"Player {client}");
-            }
-        }
-
-        playerListText.text = string.Join("\n", playersInLobby);
-        */
-    }
+   
+   
 
     private void Update()
     {
         // Actualizar lista cada frame (puedes optimizar esto después)
         if (NetworkManager.Singleton.IsHost)
         {
-            UpdatePlayerList();
+            
         }
     }
 }
