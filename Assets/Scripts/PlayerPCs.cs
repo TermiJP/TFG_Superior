@@ -115,11 +115,7 @@ public class PlayerPCs : NetworkBehaviour
         }
     } 
 
-    public void BuildPC()
-    {
-        //BuildPCServerRpc();
-        Debug.Log("Metodo build");
-    }
+    
 
     void HandlePlayerInfo()
     {

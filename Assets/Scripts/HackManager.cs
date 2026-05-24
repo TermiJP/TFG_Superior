@@ -69,7 +69,7 @@ public class HackManager : NetworkBehaviour
                 break;
             }else
             {
-                Debug.Log("Aqui no hya mierda");
+                Debug.Log("Aqui no hay continente");
             }
         }
 
@@ -85,7 +85,7 @@ public class HackManager : NetworkBehaviour
         }
         else if( foundCountry != null )
         {
-            Debug.Log("Encontre el pais");
+            Debug.Log("Encontre el continente");
             NameServerPC( nameInput ,foundCountry);
             //AQUI TENGO QUE HACER EL BUILD PC
             player.BuildPCServerRpc(foundCountry.transform.position);

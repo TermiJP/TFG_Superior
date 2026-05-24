@@ -40,34 +40,34 @@ public class CameraDrag : MonoBehaviour
         // Cuando presionas el botón central
         if (Input.GetMouseButtonDown(2))
         {
-            lastMousePosition = Input.mousePosition; //// ultima ubicacion de la camara
+            lastMousePosition = Input.mousePosition; 
         }
 
-        // Mientras mantienes presionado el botón central
+        
         if (Input.GetMouseButton(2))
         {
-            Vector3 delta = Input.mousePosition - lastMousePosition; ////// calcula la distancia entre la primera posicion y la ultima despues del grab
+            Vector3 delta = Input.mousePosition - lastMousePosition; 
 
-            // Movimiento de la cámara (invertido para sensación natural)  ////// -delta.x y -delta.y es para que haga la distancia del raton de forma inevrsa para el efecto grab
+            
             Vector3 move = new Vector3(-delta.x, -delta.y, 0f) * dragSpeed * Time.deltaTime;
 
-            // Mover en espacio local o mundo (elige uno)  /////transform es objeto, Translate moverlo y el move es el movimiento inverso y Space es de forma WorldSpace
+            
             transform.Translate(move, Space.World);
 
-            lastMousePosition = Input.mousePosition;  ///// Update de la ultima posicion para volver a calcular el siguiente grab
+            lastMousePosition = Input.mousePosition;  
 
             //-----------------------------------------------BOUNDURIES--------------------------------------------------------
 
-            Vector3 pos = transform.position; //// COGES SU POSICION SIEMPRE
+            Vector3 pos = transform.position; 
 
-            pos.x = Mathf.Clamp(pos.x, minX, maxX); //// PONES UNOS LIMITES DIRECTACMENTRE
-            pos.y = Mathf.Clamp(pos.y, minY, maxY); //// SIN NECESIDAD DE FRENAR EL MOVIMIENTO
+            pos.x = Mathf.Clamp(pos.x, minX, maxX); 
+            pos.y = Mathf.Clamp(pos.y, minY, maxY); 
 
-            transform.position = pos; //// LE DEVUELVES EL VALOR
+            transform.position = pos; 
 
             //----------------------------------------------UPDATE POS---------------------------------------------------
 
-            lastMousePosition = Input.mousePosition;  ///// Update de la ultima posicion para volver a calcular el siguiente grab
+            lastMousePosition = Input.mousePosition;  
         }
 
 
