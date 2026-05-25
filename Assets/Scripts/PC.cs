@@ -9,12 +9,25 @@ public class PC : NetworkBehaviour
     Camera cam;
     public string continentName;
     private PlayerPCs player;
+    [SerializeField] SpriteRenderer sprite;
+    [Header("PC Stats")]
+    public int vida;
+
+    public enum Estados
+    {
+        Bien,
+        Roto,
+        Bloqueado
+    }
+
+    public Estados estadoActual;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         canvas.enabled = false;
         cam = Camera.main;
+        estadoActual = Estados.Bien;
 
         if (!IsOwner)
         {
@@ -50,5 +63,11 @@ public class PC : NetworkBehaviour
     private void OnMouseEnter()
     {
         canvas.enabled = true;
+    }
+
+    public void TakeDamage()
+    {
+        estadoActual = Estados.Roto;
+        sprite.color = Color.red;
     }
 }
