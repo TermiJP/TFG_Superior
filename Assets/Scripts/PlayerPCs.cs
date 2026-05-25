@@ -39,7 +39,7 @@ public class PlayerPCs : NetworkBehaviour
 
     [Header("Reference")]
     [SerializeField] TMP_Text PC_UI;
-    [SerializeField] TMP_Text PC_TextAd;
+    //[SerializeField] TMP_Text PC_TextAd;
     [SerializeField] TMP_Text XP_Display;
     [SerializeField] TMP_Text Countries_Display;
     [SerializeField] TMP_Text P_Hacked_Display;
@@ -48,7 +48,7 @@ public class PlayerPCs : NetworkBehaviour
     [SerializeField] Canvas alwaysCanvas;
     private CreateConnection connected;
     private GameObject newPC;
-    private HackManager hackManager;
+    public HackManager hackManager;
 
     [Header("Mini Games")]
     [SerializeField] Canvas window_Graph;
@@ -60,7 +60,7 @@ public class PlayerPCs : NetworkBehaviour
     {
         cam = Camera.main;
         PC_UI = GameObject.Find("CantidadOrdenadores").GetComponent<TextMeshProUGUI>();
-        PC_TextAd = GameObject.Find("Placing PCs Adverstisemnet").GetComponent<TextMeshProUGUI>();
+        //PC_TextAd = GameObject.Find("Placing PCs Adverstisemnet").GetComponent<TextMeshProUGUI>();
         XP_Display = GameObject.Find("xp").GetComponent<TextMeshProUGUI>();
         Countries_Display = GameObject.Find("countries").GetComponent<TextMeshProUGUI>();
         P_Hacked_Display = GameObject.Find("hacked").GetComponent<TextMeshProUGUI>();
@@ -68,8 +68,9 @@ public class PlayerPCs : NetworkBehaviour
         alwaysCanvas = GameObject.Find("ALWAYS_CANVAS").GetComponent<Canvas>();
         hackingWindow = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
         hackManager = GameObject.Find("VentanaHacking").GetComponent<HackManager>();
+        
 
-        PC_TextAd.enabled = false;
+        //PC_TextAd.enabled = false;
         StartCoroutine(SumarPuntos());
     }
 
@@ -142,19 +143,16 @@ public class PlayerPCs : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void BuildPCServerRpc(Vector3 position)
     {
+        if (position == null) Debug.LogWarning("Aqui el error");
         if (cantidadPcsSinPoner > 0)
         {
             cantidadPcsSinPoner--;
-            if( hackManager.foundCountry == null)
-            {
-                Debug.LogWarning("No esta foundcountrie");
-            }
-
+            
             newPC = Instantiate(PC, position, Quaternion.identity);
             newPC.GetComponent<NetworkObject>().Spawn(true);
             connected = GameObject.Find("LineCompound").GetComponent<CreateConnection>();
             placingPC = false;
-            PC_TextAd.enabled = false;
+            //PC_TextAd.enabled = false;
             AddPC(newPC);
             Debug.Log("Esta puesto");
         }

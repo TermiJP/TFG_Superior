@@ -18,7 +18,7 @@ public class HackManager : NetworkBehaviour
     [SerializeField] public TMP_InputField inputName;
     [SerializeField] public TMP_InputField inputCountrie;
     public List<GameObject> Countries;
-    [HideInInspector] public GameObject foundCountry;
+    public GameObject foundCountry;
     private PlayerPCs player;
 
     private void Awake()
