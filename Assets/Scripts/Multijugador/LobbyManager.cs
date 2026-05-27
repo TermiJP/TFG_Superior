@@ -54,7 +54,7 @@ public class LobbyManager : MonoBehaviour
         // Mostrar UI del host
         hostUI.SetActive(true);
         lobbyUI.SetActive(false);
-        clientUI.SetActive(false);
+        //clientUI.SetActive(false);
         lobbyCodeText.text = "" + lobbyCode;
         startButton.gameObject.SetActive(true);
         // Agregar nombre del host a la lista
@@ -68,6 +68,7 @@ public class LobbyManager : MonoBehaviour
     // ========== CLIENT ==========
     public void JoinLobby()
     {
+        /*
         string code = joinCodeInput.text;
 
         if (string.IsNullOrEmpty(code))
@@ -75,14 +76,14 @@ public class LobbyManager : MonoBehaviour
             Debug.LogWarning("Ingresa un código válido");
             return;
         }
-
+        */
         // Iniciar como CLIENT
         NetworkManager.Singleton.StartClient();
-
+        
         clientUI.SetActive(true);
-        hostUI.SetActive(false);
+        //hostUI.SetActive(false);
 
-        Debug.Log($"✓ Intentando unirse con código: {code}");
+        Debug.Log("Entrando en Client Lobby");
     }
 
     // ========== INICIAR JUEGO ==========
