@@ -8,12 +8,12 @@ public class Desktop_UI : MonoBehaviour
     [SerializeField] public Canvas canvas;
     public bool abierto;
 
-    [Header("Pilares (Image tipo Filled)")]
+    [Header("Pilares")]
     public Image barYo;
     public Image barRival;
     public Image barCura;
 
-    [Header("Textos de porcentaje")]
+    [Header("Porcentaje")]
     public TMP_Text textoYo;
     public TMP_Text textoRival;
     public TMP_Text textoCura;
@@ -21,7 +21,7 @@ public class Desktop_UI : MonoBehaviour
     private Coroutine _actualizacionLoop;
     private Coroutine _animacionLoop;
 
-    [Header("Datos de juego")]
+    [Header("Datos")]
     public long infectadosYo;
     public long infectadosRival;
     public float porcentajeCura;

@@ -1893,7 +1893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &548884419
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2492,6 +2492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LobbyManager
   hostUI: {fileID: 1497621381}
   clientUI: {fileID: 2083224816}
+  lobbyUI: {fileID: 1121377509}
   lobbyCodeText: {fileID: 1752905944}
   playerListText: {fileID: 1954519941}
   joinCodeInput: {fileID: 1041533496}
@@ -3526,7 +3527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1121377510
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4270,7 +4271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1497621382
 RectTransform:
   m_ObjectHideFlags: 0

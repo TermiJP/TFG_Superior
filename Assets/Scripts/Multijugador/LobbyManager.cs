@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using Unity.Netcode.Transports.UTP;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class LobbyManager : MonoBehaviour
 
     [SerializeField] private GameObject hostUI;
     [SerializeField] private GameObject clientUI;
+    [SerializeField] private GameObject lobbyUI;
     [SerializeField] private TextMeshProUGUI lobbyCodeText;
     [SerializeField] private TextMeshProUGUI playerListText;
     [SerializeField] private TMP_InputField joinCodeInput;
@@ -51,9 +53,12 @@ public class LobbyManager : MonoBehaviour
 
         // Mostrar UI del host
         hostUI.SetActive(true);
+        lobbyUI.SetActive(false);
         clientUI.SetActive(false);
-        lobbyCodeText.text = $"CÓDIGO: {lobbyCode}";
+        lobbyCodeText.text = "" + lobbyCode;
         startButton.gameObject.SetActive(true);
+        // Agregar nombre del host a la lista
+        //AgregarJugador();
 
         Debug.Log($" Lobby creado. Código: {lobbyCode}");
 
@@ -92,19 +97,72 @@ public class LobbyManager : MonoBehaviour
         Debug.Log("✓ Iniciando juego...");
 
         // Cargar escena del juego
-        NetworkManager.Singleton.SceneManager.LoadScene("GameScene",
+        NetworkManager.Singleton.SceneManager.LoadScene("GamePlay",
             UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
 
-   
-   
+    // ========== MÉTODOS PARA ACTUALIZAR NOMBRES ==========
 
-    private void Update()
+    
+    private void AgregarJugador( TMP_InputField nombreJugador)
     {
-        // Actualizar lista cada frame (puedes optimizar esto después)
-        if (NetworkManager.Singleton.IsHost)
+        /*
+        if (!playersInLobby.Contains(nombreJugador))
         {
-            
+            playersInLobby.Add(nombreJugador);
+            ActualizarListaJugadores();
+            Debug.Log($"✓ Jugador agregado: {nombreJugador}");
         }
+        */
+    }
+
+    
+    private void ActualizarListaJugadores()
+    {
+        playerListText.text = "";
+
+        for (int i = 0; i < playersInLobby.Count; i++)
+        {
+            playerListText.text += $"Jugador {i + 1}: {playersInLobby[i]}\n";
+        }
+
+        Debug.Log($"✓ Lista actualizada: {playersInLobby.Count} jugadores");
+    }
+
+    
+    [Rpc(SendTo.Server)]
+    private void NotificarUnionServerRpc(string nombreJugador)
+    {
+        // El host ejecuta esto cuando un cliente se une
+        //AgregarJugador(nombreJugador);
+
+        
+        ActualizarListaClientesRpc();
+    }
+
+    
+    [Rpc(SendTo.Everyone)]
+    private void ActualizarListaClientesRpc()
+    {
+        ActualizarListaJugadores();
+    }
+
+    public void ClientJoinLobby()
+    {
+        string codigo = joinCodeInput.text;
+
+        // PASO 1: Obtener datos del servidor
+        //LobbyData datos = ObtenerDatosDelBackend(codigo);
+        // datos.hostIP = "192.168.1.5"
+        // datos.port = 7777
+
+        // PASO 2: Configurar dónde conectarse
+        UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        //transport.SetConnectionData(datos.hostIP, (ushort)datos.port);
+
+        // PASO 3: Conectar
+        NetworkManager.Singleton.StartClient();
+
+        // ¡LISTO! Ahora está conectado al HOST
     }
 }
