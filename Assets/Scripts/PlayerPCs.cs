@@ -62,22 +62,7 @@ public class PlayerPCs : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        /*
-        cam = Camera.main;
-        PC_UI = GameObject.Find("CantidadOrdenadores").GetComponent<TextMeshProUGUI>();
-        //PC_TextAd = GameObject.Find("Placing PCs Adverstisemnet").GetComponent<TextMeshProUGUI>();
-        XP_Display = GameObject.Find("xp").GetComponent<TextMeshProUGUI>();
-        Countries_Display = GameObject.Find("countries").GetComponent<TextMeshProUGUI>();
-        P_Hacked_Display = GameObject.Find("hacked").GetComponent<TextMeshProUGUI>();
-        Found_Display = GameObject.Find("found").GetComponent<TextMeshProUGUI>();
-        alwaysCanvas = GameObject.Find("ALWAYS_CANVAS").GetComponent<Canvas>();
-        hackingWindow = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
-        hackManager = GameObject.Find("VentanaHacking").GetComponent<HackManager>();
         
-
-        //PC_TextAd.enabled = false;
-        StartCoroutine(SumarPuntos());
-        */
     }
 
     public override void OnNetworkSpawn()
@@ -120,11 +105,10 @@ public class PlayerPCs : NetworkBehaviour
         if ( _initialized == true)
         {
             InitReferencias();
-            SelectUbicacion();
-            HandlePlayerInfo();
-            HandleInputs();
+            //StartCoroutine(UpdateMethod());
         }
-        
+
+       
     }
 
     void SelectUbicacion()
@@ -148,16 +132,28 @@ public class PlayerPCs : NetworkBehaviour
         }
     } 
 
+    IEnumerator UpdateMethod()
+    {
+        while (true)
+        {
+            SelectUbicacion();
+            HandlePlayerInfo();
+            HandleInputs();
+            Debug.Log("AAAAAAAAAA");
+        }  
+    }
+
     
 
     void HandlePlayerInfo()
     {
-        
-        if( _initialized == true && cantidadPcsSinPoner <= 0)
+        XP_Display.text = "" + xpOrdenaodres;
+
+        if ( cantidadPcsSinPoner <= 0)
         {
             
             cantidadPcsSinPoner = 0;
-            XP_Display.text = "" + xpOrdenaodres;
+            
             PC_UI.text = "" + cantidadPcsSinPoner;
             return;
         }
@@ -300,6 +296,6 @@ public class PlayerPCs : NetworkBehaviour
         var text = Instantiate(window_Text);
         text.GetComponent<NetworkObject>().Spawn();
 
-        Debug.Log("Le estoy dando ");
+     
     }
 }
