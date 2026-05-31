@@ -158,6 +158,7 @@ public class PlayerPCs : NetworkBehaviour
             
             cantidadPcsSinPoner = 0;
             XP_Display.text = "" + xpOrdenaodres;
+            PC_UI.text = "" + cantidadPcsSinPoner;
             return;
         }
         
@@ -202,19 +203,22 @@ public class PlayerPCs : NetworkBehaviour
         }
         else return;
 
-        PC_UI.text = "" + cantidadPcsSinPoner;
+       
 
         if (cantidadPcsSinPoner <= 4)
         {
             connected.AddObject(newPC.transform);
         }
+        
     }
 
 
-    public void CheckPCName( string name )
+    public void CheckPCName(string name)
     {
         PC script = PC.GetComponent<PC>();
+        Debug.LogWarning("Nombre del PC es este " + name );
         script.continentName = name;
+        Debug.LogWarning("Continent name es este " + script.continentName);
     }
 
     void AddPC( GameObject pc )

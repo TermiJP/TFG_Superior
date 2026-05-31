@@ -32,12 +32,12 @@ public class NetworkVisibility : NetworkBehaviour
         // El dueño siempre ve su propio objeto
         if (IsOwner)
         {
-            ApplyVisibility(true);
+            ApplyVisibility(true, Color.aliceBlue);
         }
         else
         {
             // El contrario empieza sin verlo
-            ApplyVisibility(false);
+            ApplyVisibility(true, Color.orangeRed);
         }
     }
 
@@ -84,12 +84,16 @@ public class NetworkVisibility : NetworkBehaviour
         // Doble check: el dueño nunca obedece este RPC aunque llegara por error
         if (IsOwner) return;
 
-        ApplyVisibility(visible);
+        ApplyVisibility(visible,Color.red);
     }
 
-    public void ApplyVisibility(bool visible)
+    public void ApplyVisibility(bool visible , Color color )
     {
         foreach (var r in _renderers)
+        {
             r.enabled = visible;
+            r.material.color = color;
+        }
+            
     }
 }

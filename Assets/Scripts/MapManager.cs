@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
@@ -6,8 +7,8 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance;
 
     // Guarda qué continentes ya tienen un PC
-    private Dictionary<string, bool> occupiedContinents = new Dictionary<string, bool>();
-
+    [SerializeField] public Dictionary<string, bool> occupiedContinents = new Dictionary<string, bool>();
+    private PlayerPCs player;
     // Se activa cuando alguien intenta colocar en un continente ocupado
     public bool continentAlreadyOccupied = false;
 
@@ -16,16 +17,18 @@ public class MapManager : MonoBehaviour
         Instance = this;
     }
 
-    /// <summary>
-    /// Intenta colocar un PC en un continente.
-    /// Devuelve true si se colocó, false si ya estaba ocupado.
-    /// </summary>
+    private void Start()
+    {
+        player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerPCs>();
+    }
+
     public bool TryPlacePC(string continentName)
     {
         if (occupiedContinents.ContainsKey(continentName) && occupiedContinents[continentName])
         {
             continentAlreadyOccupied = true;  // <-- el bool que quieres
-            Debug.Log($"{continentName} ya tiene un PC.");
+            Debug.LogWarning($"{continentName} ya tiene un PC.");
+            player.StartMinigame();
             return false;
         }
 
