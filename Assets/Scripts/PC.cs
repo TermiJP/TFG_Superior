@@ -29,14 +29,7 @@ public class PC : NetworkBehaviour
         cam = Camera.main;
         estadoActual = Estados.Bien;
 
-        if (!IsOwner)
-        {
-            player = GameObject.Find("PLAYER_1").GetComponent<PlayerPCs>();
-        }
-        else
-        {
-            player = GameObject.Find("PLAYER_2").GetComponent<PlayerPCs>();
-        }
+        player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerPCs>();
 
         bool placed = MapManager.Instance.TryPlacePC(continentName);
 
@@ -44,6 +37,8 @@ public class PC : NetworkBehaviour
         {
             // Continente ocupado 
             player.StartMinigame();
+            NetworkVisibility visibility = this.gameObject.GetComponent<NetworkVisibility>();
+            //visibility.ApplyVisibility(true);
         }
     }
 

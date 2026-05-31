@@ -29,14 +29,8 @@ public class MejoraDisplay : NetworkBehaviour, IPointerClickHandler
         textDisplayCost.text = "" + mejoraData.Cost.ToString();
         textDisplayDescription.text = "" + mejoraData.Description;
         //------------------------------------------------------------
-        if (!IsOwner)
-        {
-            player = GameObject.Find("PLAYER_1").GetComponent<PlayerPCs>();
-        } else
-        {
-            player = GameObject.Find("PLAYER_2").GetComponent<PlayerPCs>();
-        }
-         Debug.Log(" soy " + player.name);
+        player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerPCs>();
+        Debug.Log(" soy " + player.name);
         //------------------------------------------------------------
 
         Highlight.enabled = false;

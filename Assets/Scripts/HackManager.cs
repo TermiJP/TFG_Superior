@@ -26,10 +26,8 @@ public class HackManager : NetworkBehaviour
         ventana  = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
 
         //---------------------------------------------------------------------------
-        if (IsOwner)
-            player = GameObject.Find("PLAYER_1").GetComponent<PlayerPCs>();
-        else
-            player = GameObject.Find("PLAYER_2").GetComponent<PlayerPCs>();
+
+        player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerPCs>();
 
         //----------------------------------------------------------------------------
 
@@ -88,8 +86,8 @@ public class HackManager : NetworkBehaviour
             Debug.Log("Encontre el continente");
             NameServerPC( nameInput ,foundCountry);
             //AQUI TENGO QUE HACER EL BUILD PC
-            player.BuildPCServerRpc(foundCountry.transform.position);
-            
+            player.BuildPCServerRpc(foundCountry.transform.position, NetworkManager.Singleton.LocalClientId);
+
             player.CheckPCName(countrie);
         } else
         {

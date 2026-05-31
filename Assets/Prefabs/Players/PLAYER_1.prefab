@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2529381716
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 500836496
+  InScenePlacedSourceGlobalObjectIdHash: 500836496
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -84,7 +84,6 @@ MonoBehaviour:
   OrdenadoresEnJuego: []
   currentState: 0
   PC_UI: {fileID: 0}
-  PC_TextAd: {fileID: 0}
   XP_Display: {fileID: 0}
   Countries_Display: {fileID: 0}
   P_Hacked_Display: {fileID: 0}
@@ -92,6 +91,7 @@ MonoBehaviour:
   hackingWindow: {fileID: 349873201863752004, guid: 9025b09bb39ba164f8d05965383516b3,
     type: 3}
   alwaysCanvas: {fileID: 0}
+  hackManager: {fileID: 0}
   window_Graph: {fileID: 1022465990885960887, guid: 1db91e4f66d01194ea48980298ba4870,
     type: 3}
   window_Word: {fileID: 9022396872954174364, guid: e1da3b6637bf62e4ebd0c87f3e66420e,

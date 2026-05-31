@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class PlayerPCs : NetworkBehaviour
 {
@@ -55,9 +56,13 @@ public class PlayerPCs : NetworkBehaviour
     [SerializeField] Canvas window_Word;
     [SerializeField] Canvas window_Text;
 
+    public bool _initialized = false;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        /*
         cam = Camera.main;
         PC_UI = GameObject.Find("CantidadOrdenadores").GetComponent<TextMeshProUGUI>();
         //PC_TextAd = GameObject.Find("Placing PCs Adverstisemnet").GetComponent<TextMeshProUGUI>();
@@ -72,26 +77,53 @@ public class PlayerPCs : NetworkBehaviour
 
         //PC_TextAd.enabled = false;
         StartCoroutine(SumarPuntos());
+        */
     }
 
     public override void OnNetworkSpawn()
     {
+       
+
         if (!IsServer)
         {
-            enabled = false;
+            
             return;
         }
+        
+    }
+
+    
+
+    public void InitReferencias()
+    {
+        Debug.LogWarning("ESTAN TODOS LAS REFERENCIAS");
+        cam = Camera.main;
+        PC_UI = GameObject.Find("CantidadOrdenadores").GetComponent<TextMeshProUGUI>();
+        XP_Display = GameObject.Find("xp").GetComponent<TextMeshProUGUI>();
+        Countries_Display = GameObject.Find("countries").GetComponent<TextMeshProUGUI>();
+        P_Hacked_Display = GameObject.Find("hacked").GetComponent<TextMeshProUGUI>();
+
+
+        Found_Display = GameObject.Find("found").GetComponent<TextMeshProUGUI>();
+        alwaysCanvas = GameObject.Find("ALWAYS_CANVAS").GetComponent<Canvas>();
+        hackingWindow = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
+        hackManager = GameObject.Find("VentanaHacking").GetComponent<HackManager>();
+
+        StartCoroutine(SumarPuntos());
+        enabled = false;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        SelectUbicacion();
-        //BuildPC();
-        HandlePlayerInfo();
-        HandleInputs();
-
+        if ( _initialized == true)
+        {
+            InitReferencias();
+            SelectUbicacion();
+            HandlePlayerInfo();
+            HandleInputs();
+        }
         
     }
 
@@ -120,16 +152,18 @@ public class PlayerPCs : NetworkBehaviour
 
     void HandlePlayerInfo()
     {
-        if( cantidadPcsSinPoner <= 0 )
+        
+        if( _initialized == true && cantidadPcsSinPoner <= 0)
         {
+            
             cantidadPcsSinPoner = 0;
+            XP_Display.text = "" + xpOrdenaodres;
             return;
         }
-        XP_Display.text = "" + xpOrdenaodres;
         
-
     }
 
+    
     void HandleInputs()
     {
         
@@ -141,28 +175,41 @@ public class PlayerPCs : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void BuildPCServerRpc(Vector3 position)
+    public void BuildPCServerRpc(Vector3 position, ulong placerClientId)
     {
         if (position == null) Debug.LogWarning("Aqui el error");
+        _initialized = true;
         if (cantidadPcsSinPoner > 0)
         {
             cantidadPcsSinPoner--;
-            
+
             newPC = Instantiate(PC, position, Quaternion.identity);
             newPC.GetComponent<NetworkObject>().Spawn(true);
+
+            // 1. Obtener NetworkVisibility
+            NetworkVisibility visibility = newPC.GetComponent<NetworkVisibility>();
+
+            if (visibility != null)
+            {
+                visibility.InitOwner(placerClientId);
+                //    visibility.SetVisibleForOthers(true);
+            }
+
             connected = GameObject.Find("LineCompound").GetComponent<CreateConnection>();
             placingPC = false;
-            //PC_TextAd.enabled = false;
             AddPC(newPC);
             Debug.Log("Esta puesto");
         }
         else return;
+
         PC_UI.text = "" + cantidadPcsSinPoner;
+
         if (cantidadPcsSinPoner <= 4)
         {
             connected.AddObject(newPC.transform);
         }
     }
+
 
     public void CheckPCName( string name )
     {

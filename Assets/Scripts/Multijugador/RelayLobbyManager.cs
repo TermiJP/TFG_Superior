@@ -98,7 +98,15 @@ public class RelayLobbyManager : MonoBehaviour
 
         NetworkManager.Singleton.StartClient();
 
+        // activa la sincronización de escenas
+        NetworkManager.Singleton.SceneManager.OnLoad += OnSceneLoad;
+
         Debug.Log("Cliente conectado");
+    }
+
+    private void OnSceneLoad(ulong clientId, string sceneName,LoadSceneMode loadSceneMode,AsyncOperation asyncOperation)
+    {
+        Debug.Log($"[Cliente] Cargando escena: {sceneName}");
     }
 
     public void StartGame()
