@@ -105,7 +105,8 @@ public class PlayerPCs : NetworkBehaviour
         if ( _initialized == true)
         {
             InitReferencias();
-            //StartCoroutine(UpdateMethod());
+            StartCoroutine(UpdateMethod());
+            _initialized = false;
         }
 
        
@@ -140,7 +141,9 @@ public class PlayerPCs : NetworkBehaviour
             HandlePlayerInfo();
             HandleInputs();
             Debug.Log("AAAAAAAAAA");
-        }  
+
+            yield return null;
+        }                            
     }
 
     
