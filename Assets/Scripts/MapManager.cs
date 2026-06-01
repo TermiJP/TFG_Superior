@@ -1,8 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class MapManager : MonoBehaviour
+public class MapManager : NetworkBehaviour
 {
     public static MapManager Instance;
 
@@ -26,9 +27,9 @@ public class MapManager : MonoBehaviour
     {
         if (occupiedContinents.ContainsKey(continentName) && occupiedContinents[continentName])
         {
-            continentAlreadyOccupied = true;  // <-- el bool que quieres
+            continentAlreadyOccupied = true;  
             Debug.LogWarning($"{continentName} ya tiene un PC.");
-            player.StartMinigame();
+            StartCoroutine(StartMinigameNextFrame());
             return false;
         }
 
@@ -41,5 +42,11 @@ public class MapManager : MonoBehaviour
     {
         if (occupiedContinents.ContainsKey(continentName))
             occupiedContinents[continentName] = false;
+    }
+
+    private IEnumerator StartMinigameNextFrame()
+    {
+        yield return new WaitForEndOfFrame(); // espera 1 frame
+        player.StartMinigame();
     }
 }

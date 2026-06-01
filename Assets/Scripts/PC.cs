@@ -37,6 +37,8 @@ public class PC : NetworkBehaviour
         {
             // Continente ocupado 
             player.StartMinigame();
+            Destroy(this.gameObject);
+
             NetworkVisibility visibility = this.gameObject.GetComponent<NetworkVisibility>();
             //visibility.ApplyVisibility(true);
         }

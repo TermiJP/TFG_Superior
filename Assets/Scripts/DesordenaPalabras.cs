@@ -44,13 +44,7 @@ public class DesordenaPalabras : MonoBehaviour
 
     private void Start()
     {
-        //Referenciar todo lso textos 
-        palabra1 = GameObject.Find("Text_Palabra1").GetComponent<TMP_Text>();
-        palabra2 = GameObject.Find("Text_Palabra2").GetComponent<TMP_Text>();
-        palabra3 = GameObject.Find("Text_Palabra3").GetComponent<TMP_Text>();
-
         
-
         ObtenerTresPalabras(out stringWord1, out stringWord2, out stringWord3);
         StartGame();
     }

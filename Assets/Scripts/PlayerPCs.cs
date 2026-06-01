@@ -47,6 +47,7 @@ public class PlayerPCs : NetworkBehaviour
     [SerializeField] TMP_Text Found_Display;
     [SerializeField] Canvas  hackingWindow;
     [SerializeField] Canvas alwaysCanvas;
+    [SerializeField] private TMP_Text timerText;
     private CreateConnection connected;
     private GameObject newPC;
     public HackManager hackManager;
@@ -55,6 +56,7 @@ public class PlayerPCs : NetworkBehaviour
     [SerializeField] Canvas window_Graph;
     [SerializeField] Canvas window_Word;
     [SerializeField] Canvas window_Text;
+    
 
     public bool _initialized = false;
 
@@ -87,7 +89,7 @@ public class PlayerPCs : NetworkBehaviour
         XP_Display = GameObject.Find("xp").GetComponent<TextMeshProUGUI>();
         Countries_Display = GameObject.Find("countries").GetComponent<TextMeshProUGUI>();
         P_Hacked_Display = GameObject.Find("hacked").GetComponent<TextMeshProUGUI>();
-
+        timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
 
         Found_Display = GameObject.Find("found").GetComponent<TextMeshProUGUI>();
         alwaysCanvas = GameObject.Find("ALWAYS_CANVAS").GetComponent<Canvas>();
@@ -140,7 +142,7 @@ public class PlayerPCs : NetworkBehaviour
             SelectUbicacion();
             HandlePlayerInfo();
             HandleInputs();
-            Debug.Log("AAAAAAAAAA");
+            //Debug.Log("AAAAAAAAAA");
 
             yield return null;
         }                            
@@ -169,7 +171,7 @@ public class PlayerPCs : NetworkBehaviour
         
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
-            Debug.Log("pene pene ");
+            Debug.Log("MiniGames ");
             StartMinigame();
         }
     }
@@ -237,7 +239,7 @@ public class PlayerPCs : NetworkBehaviour
     {
         while (true) 
         {
-            yield return new WaitForSeconds(2f); 
+            yield return new WaitForSeconds(5f); 
             GainXP();
             
         }
@@ -290,15 +292,30 @@ public class PlayerPCs : NetworkBehaviour
 
     public void StartMinigame()
     {
-        var graph = Instantiate(window_Graph);
-        graph.GetComponent<NetworkObject>().Spawn();
 
-        var word = Instantiate(window_Word);
-        word.GetComponent<NetworkObject>().Spawn();
+        Instantiate(window_Graph);
+        Instantiate(window_Word);
+        Instantiate(window_Text);
+        timerText.enabled = true;
+        StartCoroutine(Countdown());
 
-        var text = Instantiate(window_Text);
-        text.GetComponent<NetworkObject>().Spawn();
+    }
 
-     
+    private IEnumerator Countdown()
+    {
+        float tiempoRestante = 35f;
+
+        while (tiempoRestante > 0)
+        {
+            int minutos = Mathf.FloorToInt(tiempoRestante / 60);
+            int segundos = Mathf.FloorToInt(tiempoRestante % 60);
+            timerText.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+
+            yield return new WaitForSeconds(1f);
+            tiempoRestante--;
+        }
+
+        timerText.text = "00:00";
+        //Destroy(gameObject);
     }
 }
