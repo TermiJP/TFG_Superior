@@ -40,26 +40,44 @@ public class Desktop_UI : NetworkBehaviour
     private float _targetCura;
 
     private CureSystem _curesystem;
-    private PlayerPCs _player;
+    private PlayerPCs _playerLocal;
+    private PlayerPCs _playerRival;
 
-   
+
     private void Start()
     {
         canvas.enabled = false;
         _curesystem = GameObject.Find("CureSystem").GetComponent<CureSystem>();
+        FindPlayers();
     }
 
     private void Update()
     {
         porcentajeCura = _curesystem.cureProgress;
 
-        if (OwnerClientId == NetworkManager.Singleton.LocalClientId)
+        if (_playerLocal == null || _playerRival == null)
+            FindPlayers();
+
+        if (_playerLocal != null)
+            infectadosYo = _playerLocal.Peopleinfected;
+
+        if (_playerRival != null)
+            infectadosRival = _playerRival.Peopleinfected;
+    }
+
+    private void FindPlayers()
+    {
+        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject go in allPlayers)
         {
-            infectadosYo = _player.Peopleinfected;
-        }
-        else
-        {
-            infectadosRival = _player.Peopleinfected;
+            PlayerPCs p = go.GetComponent<PlayerPCs>();
+            if (p == null) continue;
+
+            if (p.IsOwner)
+                _playerLocal = p;
+            else
+                _playerRival = p;
         }
     }
     public void AbrirDesktop()

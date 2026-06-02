@@ -70,5 +70,6 @@ public class MejoraDisplay : NetworkBehaviour, IPointerClickHandler
     public void Comprar()
     {
         player.ComprarHabilidad(mejoraData);
+        //player.xpOrdenaodres -= mejoraData.Cost;
     }
 }
