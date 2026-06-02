@@ -22,7 +22,7 @@ public class PlayerPCs : NetworkBehaviour
     public float _sumaxp;
     public float proteccion;
     public float Peoplehacked;
-    public float Peopleinfected;
+    public long Peopleinfected;
     public float peligroHacker;
     public float facilidadhackeo;
     public List< GameObject> OrdenadoresEnJuego;
@@ -227,12 +227,19 @@ public class PlayerPCs : NetworkBehaviour
         OrdenadoresEnJuego.Add( pc );
     }
 
+    //--------------------------------------------------------------------------------
+
     void GainXP()
     {
         foreach (GameObject pc in OrdenadoresEnJuego)
         {
             xpOrdenaodres += _sumaxp;
         }
+    }
+
+    void PeopleInfection()
+    {
+
     }
 
     IEnumerator SumarPuntos()
@@ -244,6 +251,18 @@ public class PlayerPCs : NetworkBehaviour
             
         }
     }
+
+    IEnumerator SumarInfection()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(facilidadhackeo);
+            ++Peoplehacked;
+        }
+       
+    }
+
+    //---------------------------------------------------------------------------------
 
     public void ComprarHabilidad(MejoraData mejora)
     {

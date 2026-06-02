@@ -22,7 +22,7 @@ public class CureSystem : NetworkBehaviour
     private void Awake()
     {
         player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerPCs>();
-        Debug.Log(" soy " + player.name);
+        
     }
 
     void Update()

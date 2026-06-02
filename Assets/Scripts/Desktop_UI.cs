@@ -1,9 +1,10 @@
 using System.Collections;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Desktop_UI : MonoBehaviour
+public class Desktop_UI : NetworkBehaviour
 {
     [SerializeField] public Canvas canvas;
     public bool abierto;
@@ -38,10 +39,28 @@ public class Desktop_UI : MonoBehaviour
     private float _targetRival;
     private float _targetCura;
 
+    private CureSystem _curesystem;
+    private PlayerPCs _player;
+
    
     private void Start()
     {
         canvas.enabled = false;
+        _curesystem = GameObject.Find("CureSystem").GetComponent<CureSystem>();
+    }
+
+    private void Update()
+    {
+        porcentajeCura = _curesystem.cureProgress;
+
+        if (OwnerClientId == NetworkManager.Singleton.LocalClientId)
+        {
+            infectadosYo = _player.Peopleinfected;
+        }
+        else
+        {
+            infectadosRival = _player.Peopleinfected;
+        }
     }
     public void AbrirDesktop()
     {
