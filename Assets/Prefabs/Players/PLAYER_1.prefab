@@ -79,7 +79,7 @@ MonoBehaviour:
   proteccion: 0
   Peoplehacked: 0
   Peopleinfected: 0
-  peligroHacker: 0
+  peligroHacker: 0.2
   facilidadhackeo: 0
   OrdenadoresEnJuego: []
   currentState: 0
@@ -91,6 +91,7 @@ MonoBehaviour:
   hackingWindow: {fileID: 349873201863752004, guid: 9025b09bb39ba164f8d05965383516b3,
     type: 3}
   alwaysCanvas: {fileID: 0}
+  timerText: {fileID: 0}
   hackManager: {fileID: 0}
   window_Graph: {fileID: 1022465990885960887, guid: 1db91e4f66d01194ea48980298ba4870,
     type: 3}
@@ -98,3 +99,4 @@ MonoBehaviour:
     type: 3}
   window_Text: {fileID: 6378931292554027921, guid: 0f640e6bc1a69ab47a213223d0de915d,
     type: 3}
+  _initialized: 0

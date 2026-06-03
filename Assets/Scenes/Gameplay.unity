@@ -12360,7 +12360,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -23886722}
+  m_AnchoredPosition: {x: 0, y: -23969030}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &664738464
@@ -12897,7 +12897,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 72.3, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &819050283
@@ -12920,7 +12920,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'P.Hacked:'
+  m_text: '0
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 91b010a2a18d15445a47b5971d1a1708, type: 2}
   m_sharedMaterial: {fileID: -1560585089883290898, guid: 91b010a2a18d15445a47b5971d1a1708,
@@ -12987,7 +12989,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 99.68847, y: 16.003218, z: 9.382454, w: 18.465235}
+  m_margin: {x: 99.68847, y: 16.003218, z: 37.153366, w: 18.465235}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -35152,11 +35154,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CureSystem
   ShowTopMostFoldoutHeaderGroup: 1
   cureProgress: 0
-  peligro: 10
-  infectedPercent: 5
-  globalResearchFactor: 1
+  peligro: 0
+  infectedPercent: 0
+  globalResearchFactor: 0.05
   hackResistance: 0
-  richCountries: 5
+  richCountries: 2
 --- !u!4 &1500043027
 Transform:
   m_ObjectHideFlags: 0
@@ -47099,6 +47101,7 @@ GameObject:
   - component: {fileID: 1994886796}
   - component: {fileID: 1994886795}
   - component: {fileID: 1994886798}
+  - component: {fileID: 1994886799}
   m_Layer: 0
   m_Name: ALWAYS_CANVAS
   m_TagString: Untagged
@@ -47215,6 +47218,31 @@ MonoBehaviour:
   porcentajeCura: 200
   intervaloActualizacion: 0.5
   velocidadAnimacion: 5
+--- !u!114 &1994886799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994886793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 2872082955
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &2043779743
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ public class PlayerPCs : NetworkBehaviour
     public long Peopleinfected;
     public float peligroHacker;
     public float facilidadhackeo;
+    private float _infectionTimer = 0f;
     public List< GameObject> OrdenadoresEnJuego;
 
 
@@ -142,7 +143,7 @@ public class PlayerPCs : NetworkBehaviour
             SelectUbicacion();
             HandlePlayerInfo();
             HandleInputs();
-            //Debug.Log("AAAAAAAAAA");
+            InfectOverTime();
 
             yield return null;
         }                            
@@ -177,7 +178,7 @@ public class PlayerPCs : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void BuildPCServerRpc(Vector3 position, ulong placerClientId)
+    public void BuildPCServerRpc(Vector3 position, ulong placerClientId, string name)
     {
         if (position == null) Debug.LogWarning("Aqui el error");
         _initialized = true;
@@ -186,7 +187,14 @@ public class PlayerPCs : NetworkBehaviour
             cantidadPcsSinPoner--;
 
             newPC = Instantiate(PC, position, Quaternion.identity);
+
+            
+            PC script = newPC.GetComponent<PC>();
+            script.continentName = name;
+
             newPC.GetComponent<NetworkObject>().Spawn(true);
+            
+           
 
             // 1. Obtener NetworkVisibility
             NetworkVisibility visibility = newPC.GetComponent<NetworkVisibility>();
@@ -237,9 +245,19 @@ public class PlayerPCs : NetworkBehaviour
         }
     }
 
-    void PeopleInfection()
+    private void InfectOverTime()
     {
+        _infectionTimer += Time.deltaTime;
 
+        // Cada X segundos infecta una persona nueva
+        float interval = 1f / peligroHacker;
+
+        if (_infectionTimer >= interval)
+        {
+            _infectionTimer = 0f;
+            ++Peopleinfected;
+            P_Hacked_Display.text = "" + Peopleinfected;
+        }
     }
 
     IEnumerator SumarPuntos()
@@ -252,15 +270,7 @@ public class PlayerPCs : NetworkBehaviour
         }
     }
 
-    IEnumerator SumarInfection()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(facilidadhackeo);
-            ++Peoplehacked;
-        }
-       
-    }
+    
 
     //---------------------------------------------------------------------------------
 

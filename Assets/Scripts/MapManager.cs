@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -7,11 +8,16 @@ public class MapManager : NetworkBehaviour
 {
     public static MapManager Instance;
 
-    // Guarda qué continentes ya tienen un PC
-    [SerializeField] public Dictionary<string, bool> occupiedContinents = new Dictionary<string, bool>();
+    [SerializeField]
+    private List<string> allContinents = new List<string>()
+    {
+        "Europe", "Asia", "Africa", "America", "Oceania"  // añade los tuyos
+    };
+
+    [SerializeField]public NetworkList<FixedString64Bytes> occupiedContinents;
+
     private PlayerPCs player;
-    // Se activa cuando alguien intenta colocar en un continente ocupado
-    public bool continentAlreadyOccupied = false;
+    
 
     void Awake()
     {
@@ -23,26 +29,33 @@ public class MapManager : NetworkBehaviour
         player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerPCs>();
     }
 
-    public bool TryPlacePC(string continentName)
+    [Rpc(SendTo.Server)]
+    public void TryPlacePCRpc(string continentName)
     {
-        if (occupiedContinents.ContainsKey(continentName) && occupiedContinents[continentName])
+        Debug.LogWarning("Estoy intentando" + continentName);
+        // 1. ¿El continente existe?
+        if (!allContinents.Contains(continentName))
         {
-            continentAlreadyOccupied = true;  
-            Debug.LogWarning($"{continentName} ya tiene un PC.");
-            StartCoroutine(StartMinigameNextFrame());
-            return false;
+            Debug.LogWarning($"{continentName} no existe en el mapa.");
+            
         }
 
-        occupiedContinents[continentName] = true;
-        continentAlreadyOccupied = false;
-        return true;
+        // 2. ¿Ya está ocupado?
+        if (occupiedContinents.Contains(continentName))
+        {
+            
+            Debug.LogWarning($"{continentName} ya tiene un PC.");
+            StartCoroutine(StartMinigameNextFrame());
+            
+        }
+
+        // 3. Ocuparlo
+        occupiedContinents.Add(continentName);
+        
+       
     }
 
-    public void RemovePC(string continentName)
-    {
-        if (occupiedContinents.ContainsKey(continentName))
-            occupiedContinents[continentName] = false;
-    }
+    
 
     private IEnumerator StartMinigameNextFrame()
     {

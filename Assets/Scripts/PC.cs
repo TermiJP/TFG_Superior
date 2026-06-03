@@ -12,6 +12,7 @@ public class PC : NetworkBehaviour
     [SerializeField] SpriteRenderer sprite;
     [Header("PC Stats")]
     public int vida;
+    MapManager map;
 
     public enum Estados
     {
@@ -22,6 +23,11 @@ public class PC : NetworkBehaviour
 
     public Estados estadoActual;
 
+    private void Awake()
+    {
+        map = GameObject.Find("MapManager").GetComponent<MapManager>();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,9 +36,9 @@ public class PC : NetworkBehaviour
         estadoActual = Estados.Bien;
 
         player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerPCs>();
-
-        bool placed = MapManager.Instance.TryPlacePC(continentName);
-
+        map.TryPlacePCRpc(continentName);
+       
+        /*
         if (!placed)
         {
             // Continente ocupado 
@@ -42,6 +48,7 @@ public class PC : NetworkBehaviour
             NetworkVisibility visibility = this.gameObject.GetComponent<NetworkVisibility>();
             //visibility.ApplyVisibility(true);
         }
+        */
     }
 
     // Update is called once per frame

@@ -7,15 +7,15 @@ public class CureSystem : NetworkBehaviour
     [Range(0, 100)] public float cureProgress = 0f;
 
     [Header("Disease Stats")]
-    public float peligro = 10f;        
-    public float infectedPercent = 5f;  // % población mundial
+    public float peligro;        
+    public float infectedPercent;  // % población mundial
 
     [Header("Modifiers")]
-    public float globalResearchFactor = 1f;
+    public float globalResearchFactor = 0.05f;
     public float hackResistance = 0f;  
 
     [Header("Countries")]
-    public int richCountries = 5; // países que investigan fuerte
+    public int richCountries = 2; // países que investigan fuerte
 
     private PlayerPCs player;
 

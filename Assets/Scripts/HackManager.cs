@@ -83,12 +83,12 @@ public class HackManager : NetworkBehaviour
         }
         else if( foundCountry != null )
         {
-            Debug.Log("Encontre el continente");
+            Debug.Log("Encontre el continente " +  countrie);
             NameServerPC( nameInput ,foundCountry);
             //AQUI TENGO QUE HACER EL BUILD PC
-            player.BuildPCServerRpc(foundCountry.transform.position, NetworkManager.Singleton.LocalClientId);
+            player.BuildPCServerRpc(foundCountry.transform.position, NetworkManager.Singleton.LocalClientId, countrie);
 
-            player.CheckPCName(countrie);
+            
         } else
         {
             Debug.Log("No esta countrie");
