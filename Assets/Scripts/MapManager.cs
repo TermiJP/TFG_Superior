@@ -14,52 +14,66 @@ public class MapManager : NetworkBehaviour
         "Europe", "Asia", "Africa", "America", "Oceania"  // añade los tuyos
     };
 
-    [SerializeField]public NetworkList<FixedString64Bytes> occupiedContinents;
+    [SerializeField] public NetworkList<FixedString64Bytes> occupiedContinents;
+    [SerializeField] private List<string> occupiedContinentsDebug = new List<string>();
 
     private PlayerPCs player;
-    
+
 
     void Awake()
     {
         Instance = this;
+        // Inicializar aquí, no en Start
+        occupiedContinents = new NetworkList<FixedString64Bytes>();
     }
 
     private void Start()
     {
+
+        if (NetworkManager.Singleton.IsServer)
+        {
+            GetComponent<NetworkObject>().Spawn();
+        }
+
         player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerPCs>();
     }
+
 
     [Rpc(SendTo.Server)]
     public void TryPlacePCRpc(string continentName)
     {
-        Debug.LogWarning("Estoy intentando" + continentName);
-        // 1. ¿El continente existe?
+        Debug.LogWarning("Estoy intentando " + continentName);
+
         if (!allContinents.Contains(continentName))
         {
             Debug.LogWarning($"{continentName} no existe en el mapa.");
-            
+            return;
         }
 
-        // 2. ¿Ya está ocupado?
         if (occupiedContinents.Contains(continentName))
         {
-            
             Debug.LogWarning($"{continentName} ya tiene un PC.");
             StartCoroutine(StartMinigameNextFrame());
-            
+            return;
         }
 
-        // 3. Ocuparlo
         occupiedContinents.Add(continentName);
-        
-       
+        // Avisa a todos que actualicen su lista debug
+        SyncDebugListRpc();
     }
 
-    
+    [Rpc(SendTo.Everyone)]
+    private void SyncDebugListRpc()
+    {
+        occupiedContinentsDebug.Clear();
+        foreach (var c in occupiedContinents)
+            occupiedContinentsDebug.Add(c.ToString());
+    }
+
 
     private IEnumerator StartMinigameNextFrame()
     {
         yield return new WaitForEndOfFrame(); // espera 1 frame
-        player.StartMinigame();
+        //player.StartMinigame();
     }
 }

@@ -1,3 +1,5 @@
+
+using System.Net.Sockets;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -29,17 +31,39 @@ public class NetworkVisibility : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        // El dueño siempre ve su propio objeto
-        if (IsOwner)
+        // Suscríbete al cambio del ownerClientId
+        _ownerClientId.OnValueChanged += OnOwnerChanged;
+
+        // Por si ya tiene valor cuando spawneamos
+        ApplyColor(_ownerClientId.Value);
+    }
+
+    private void OnOwnerChanged(ulong previous, ulong current)
+    {
+        ApplyColor(current);
+    }
+
+    private void ApplyColor(ulong ownerClientId)
+    {
+        if (ownerClientId == ulong.MaxValue) return; // Aún no inicializado
+
+        if (NetworkManager.Singleton.LocalClientId == ownerClientId)
         {
+            // Este PC es mío → azul
             ApplyVisibility(true, Color.aliceBlue);
         }
         else
         {
-            // El contrario empieza sin verlo
+            // Este PC es del rival → rojo
             ApplyVisibility(true, Color.orangeRed);
         }
     }
+
+    public override void OnNetworkDespawn()
+    {
+        _ownerClientId.OnValueChanged -= OnOwnerChanged;
+    }
+    //Así cada jugador compara su propio LocalClientId con el _ownerClientId del PC, y colorea correctamente independientemente de quién sea el owner de NGO.Sonnet 4.6 Bajo
 
     public void InitOwner(ulong placerClientId)
     {
@@ -47,7 +71,7 @@ public class NetworkVisibility : NetworkBehaviour
         _ownerClientId.Value = placerClientId;
     }
 
-   
+   /*
 
     // ── Public API ────────────────────────────────────────────────────────
 
@@ -77,6 +101,9 @@ public class NetworkVisibility : NetworkBehaviour
         }
     }
 
+    */
+    /*
+
     // ── ClientRpc dirigido solo al cliente contrario ─────────────────────────
     [ClientRpc]
     private void SetVisibilityClientRpc(bool visible, ClientRpcParams rpcParams = default)
@@ -86,6 +113,7 @@ public class NetworkVisibility : NetworkBehaviour
 
         ApplyVisibility(visible,Color.red);
     }
+    */
 
     public void ApplyVisibility(bool visible , Color color )
     {

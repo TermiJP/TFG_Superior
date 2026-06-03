@@ -43,11 +43,14 @@ public class Desktop_UI : NetworkBehaviour
     private PlayerPCs _playerLocal;
     private PlayerPCs _playerRival;
 
+    [SerializeField] private Button figthButton;
+
 
     private void Start()
     {
         canvas.enabled = false;
         _curesystem = GameObject.Find("CureSystem").GetComponent<CureSystem>();
+        figthButton.onClick.AddListener(FightPVP);
         FindPlayers();
     }
 
@@ -127,6 +130,19 @@ public class Desktop_UI : NetworkBehaviour
             barCura.fillAmount = Mathf.Lerp(barCura.fillAmount, _targetCura, Time.deltaTime * velocidadAnimacion);
 
             yield return null;
+        }
+    }
+
+    void FightPVP()
+    {
+        
+        if ( _playerLocal.xpOrdenaodres < 25)
+        {
+            return;
+        } else
+        {
+            _playerLocal.StartMinigameRpc();
+            _playerLocal.xpOrdenaodres -= 25;
         }
     }
 }

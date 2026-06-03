@@ -173,7 +173,7 @@ public class PlayerPCs : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             Debug.Log("MiniGames ");
-            StartMinigame();
+            //StartMinigame();
         }
     }
 
@@ -185,7 +185,7 @@ public class PlayerPCs : NetworkBehaviour
         if (cantidadPcsSinPoner > 0)
         {
             cantidadPcsSinPoner--;
-
+            xpOrdenaodres -= 20;
             newPC = Instantiate(PC, position, Quaternion.identity);
 
             
@@ -216,7 +216,7 @@ public class PlayerPCs : NetworkBehaviour
 
         if (cantidadPcsSinPoner <= 4)
         {
-            connected.AddObject(newPC.transform);
+            //connected.AddObject(newPC.transform);
         }
         
     }
@@ -319,7 +319,8 @@ public class PlayerPCs : NetworkBehaviour
         Debug.Log("Abrir Hack");
     }
 
-    public void StartMinigame()
+    [Rpc(SendTo.NotOwner)]
+    public void StartMinigameRpc()
     {
 
         Instantiate(window_Graph);
