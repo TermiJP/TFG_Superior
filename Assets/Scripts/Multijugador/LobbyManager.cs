@@ -4,8 +4,10 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using Unity.Netcode.Transports.UTP;
+using UnityEngine.SceneManagement;
 
-public class LobbyManager : MonoBehaviour
+
+public class LobbyManager : NetworkBehaviour
 {
     public static LobbyManager Instance { get; private set; }
 
@@ -30,7 +32,7 @@ public class LobbyManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        
     }
 
     private void Start()
@@ -40,6 +42,8 @@ public class LobbyManager : MonoBehaviour
         startButton.onClick.AddListener(StartGame);
 
         startButton.gameObject.SetActive(false);
+
+        
     }
 
     // ========== HOST ==========
@@ -97,14 +101,26 @@ public class LobbyManager : MonoBehaviour
 
         Debug.Log("✓ Iniciando juego...");
 
-        // Cargar escena del juego
-        NetworkManager.Singleton.SceneManager.LoadScene("GamePlay",
-            UnityEngine.SceneManagement.LoadSceneMode.Single);
+         LoadSceneClientRpc();
     }
+
+    [Rpc(SendTo.Everyone)]
+    private void LoadSceneClientRpc()
+    {
+        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject go in allPlayers)
+        {
+            DontDestroyOnLoad(go.gameObject);
+        }
+
+        SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+    }
+
 
     // ========== MÉTODOS PARA ACTUALIZAR NOMBRES ==========
 
-    
+
     private void AgregarJugador( TMP_InputField nombreJugador)
     {
         /*
