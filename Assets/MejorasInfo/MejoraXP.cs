@@ -7,6 +7,6 @@ public class MejoraXP : MejoraData
 
     public override void Aplicar(PlayerPCs player)
     {
-        player._sumaxp += valor;
+        player._sumaxp.Value += valor;
     }
 }

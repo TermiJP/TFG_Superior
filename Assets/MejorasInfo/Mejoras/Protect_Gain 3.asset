@@ -15,5 +15,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 74c4dd7e70dc2ca45bca1618df6947c3, type: 3}
   NameMejora: Ciberseguridad lll
   Cost: 40
+  valor: 15
+  tipo: 2
   Description: Retrasa el bloqueo
   valor: 15

@@ -68,9 +68,9 @@ public class CureSystem : NetworkBehaviour
 
     void UpdatePlayerInfo(PlayerPCs player)
     {
-        peligro = player.peligroHacker;
+        peligro = player.peligroHacker.Value;
         infectedPercent = player.Peopleinfected;
-        hackResistance = player.proteccion;
+        hackResistance = player.proteccion.Value;
     }
 
 }

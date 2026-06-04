@@ -19,15 +19,20 @@ public class PlayerPCs : NetworkBehaviour
     public NetworkVariable<float> cantidadPcsSinPoner = new NetworkVariable<float>(5,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
-    public bool placingPC;
     public NetworkVariable<float> xpOrdenaodres = new NetworkVariable<float>(0,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
-    public float _sumaxp;
-    public float proteccion;
+    public NetworkVariable<float> _sumaxp = new NetworkVariable<float>(1,
+    NetworkVariableReadPermission.Everyone,
+    NetworkVariableWritePermission.Server);
+    public NetworkVariable<float> proteccion = new NetworkVariable<float>(1,
+    NetworkVariableReadPermission.Everyone,
+    NetworkVariableWritePermission.Server);
     public float Peoplehacked;
     public long Peopleinfected;
-    public float peligroHacker;
+    public NetworkVariable<float> peligroHacker = new NetworkVariable<float>(1,
+    NetworkVariableReadPermission.Everyone,
+    NetworkVariableWritePermission.Server);
     public float facilidadhackeo;
     
     private float _infectionTimer = 0f;
@@ -44,6 +49,17 @@ public class PlayerPCs : NetworkBehaviour
     }
 
     public ProtectionState currentState;
+
+    public enum TipoMejora
+    {
+        MasOrdenadores,
+        MasXP,
+        MasProteccion,
+        MasPeligroHacker,
+        MasFacilidadHackeo,
+    }
+
+    public TipoMejora tipos;
 
     [Header("Reference")]
     [SerializeField] TMP_Text PC_UI;
@@ -95,11 +111,11 @@ public class PlayerPCs : NetworkBehaviour
         cam = Camera.main;
         PC_UI = GameObject.Find("CantidadOrdenadores").GetComponent<TextMeshProUGUI>();
         XP_Display = GameObject.Find("xp").GetComponent<TextMeshProUGUI>();
-        Countries_Display = GameObject.Find("countries").GetComponent<TextMeshProUGUI>();
+        //Countries_Display = GameObject.Find("countries").GetComponent<TextMeshProUGUI>();
         P_Hacked_Display = GameObject.Find("hacked").GetComponent<TextMeshProUGUI>();
         timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
 
-        Found_Display = GameObject.Find("found").GetComponent<TextMeshProUGUI>();
+        //Found_Display = GameObject.Find("found").GetComponent<TextMeshProUGUI>();
         alwaysCanvas = GameObject.Find("ALWAYS_CANVAS").GetComponent<Canvas>();
         hackingWindow = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
         hackManager = GameObject.Find("VentanaHacking").GetComponent<HackManager>();
@@ -157,7 +173,6 @@ public class PlayerPCs : NetworkBehaviour
         while (true)
         {
             SelectUbicacion();
-            
             HandlePlayerInfo();
             HandleInputs();
             InfectOverTime();
@@ -174,8 +189,7 @@ public class PlayerPCs : NetworkBehaviour
             XP_Display.text = "" + xpOrdenaodres.Value.ToString();
         if (PC_UI != null)
             PC_UI.text = "" + cantidadPcsSinPoner.Value.ToString();
-        if (Countries_Display != null)
-            Countries_Display = "" + 
+        Debug.Log("AAAAAAAAhh");
 
     }
 
@@ -219,7 +233,7 @@ public class PlayerPCs : NetworkBehaviour
             }
 
             connected = GameObject.Find("LineCompound").GetComponent<CreateConnection>();
-            placingPC = false;
+            
 
             AddPC(newPC);
             Debug.Log("Esta puesto");
@@ -269,7 +283,7 @@ public class PlayerPCs : NetworkBehaviour
     void GainXPRpc()
     {
 
-        xpOrdenaodres.Value += _sumaxp * OrdenadoresEnJuego.Count;
+        xpOrdenaodres.Value += _sumaxp.Value * OrdenadoresEnJuego.Count;
     }
 
     private void InfectOverTime()
@@ -277,7 +291,7 @@ public class PlayerPCs : NetworkBehaviour
         _infectionTimer += Time.deltaTime;
 
         // Cada X segundos infecta una persona nueva
-        float interval = 1f / peligroHacker;
+        float interval = 1f / peligroHacker.Value;
 
         if (_infectionTimer >= interval)
         {
@@ -302,17 +316,39 @@ public class PlayerPCs : NetworkBehaviour
     //---------------------------------------------------------------------------------
     public void ComprarHabilidad(MejoraData mejora)
     {
-        ComprarHabilidadServerRpc(mejora.Cost);
-        mejora.Aplicar(this);
+        ComprarHabilidadServerRpc(mejora.Cost, mejora.valor, mejora.tipo);
+        //mejora.Aplicar(this);
     }
 
     [Rpc(SendTo.Server)]
-    public void ComprarHabilidadServerRpc(float coste)
+    public void ComprarHabilidadServerRpc(float coste, float valor, TipoMejora tipo)
     {
         if (xpOrdenaodres.Value >= coste)
         {
             xpOrdenaodres.Value -= coste;
-            
+
+            switch (tipo)
+            {
+                case TipoMejora.MasOrdenadores:
+                    cantidadPcsSinPoner.Value += valor;
+                    break;
+
+                case TipoMejora.MasXP:
+                    _sumaxp.Value += valor;
+                    break;
+
+                case TipoMejora.MasProteccion:
+                    proteccion.Value += valor;
+                    break;
+
+                case TipoMejora.MasPeligroHacker:
+                    peligroHacker.Value += valor;
+                    break;
+
+                default:
+                    Debug.LogWarning("TipoMejora no reconocido: " + tipo);
+                    break;
+            }
         }
         else
         {
@@ -327,19 +363,19 @@ public class PlayerPCs : NetworkBehaviour
         switch (currentState)
         {
             case ProtectionState.SinProteccion:
-                proteccion = 10f;
+                proteccion.Value = 10f;
                 break;
 
             case ProtectionState.Baja:
-                proteccion = 15f;
+                proteccion.Value = 15f;
                 break;
 
             case ProtectionState.Media:
-                proteccion = 20f;
+                proteccion.Value = 20f;
                 break;
 
             case ProtectionState.Alta:
-                proteccion = 25f;
+                proteccion.Value = 25f;
                 break;
  
         }
