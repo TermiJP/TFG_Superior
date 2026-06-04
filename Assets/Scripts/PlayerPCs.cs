@@ -16,17 +16,23 @@ public class PlayerPCs : NetworkBehaviour
     [ SerializeField ] GameObject PC;
 
     [Header("Datos Player")]
-    public float cantidadPcsSinPoner = 5;
+    public NetworkVariable<float> cantidadPcsSinPoner = new NetworkVariable<float>(5,
+    NetworkVariableReadPermission.Everyone,
+    NetworkVariableWritePermission.Server);
     public bool placingPC;
-    public float xpOrdenaodres;
+    public NetworkVariable<float> xpOrdenaodres = new NetworkVariable<float>(0,
+    NetworkVariableReadPermission.Everyone,
+    NetworkVariableWritePermission.Server);
     public float _sumaxp;
     public float proteccion;
     public float Peoplehacked;
     public long Peopleinfected;
     public float peligroHacker;
     public float facilidadhackeo;
+    
     private float _infectionTimer = 0f;
     public List< GameObject> OrdenadoresEnJuego;
+    private bool _firstTimeBuild = true;
 
 
     public enum ProtectionState
@@ -80,10 +86,11 @@ public class PlayerPCs : NetworkBehaviour
         
     }
 
-    
 
-    public void InitReferencias()
+    [Rpc(SendTo.Owner)]
+    public void InitReferenciasRpc()
     {
+        Debug.LogWarning("InitReferencesClientRpc llamado - IsOwner: " + IsOwner + " ClientId: " + OwnerClientId);
         Debug.LogWarning("ESTAN TODOS LAS REFERENCIAS");
         cam = Camera.main;
         PC_UI = GameObject.Find("CantidadOrdenadores").GetComponent<TextMeshProUGUI>();
@@ -97,18 +104,26 @@ public class PlayerPCs : NetworkBehaviour
         hackingWindow = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
         hackManager = GameObject.Find("VentanaHacking").GetComponent<HackManager>();
 
+        var xpObj = GameObject.Find("xp");
+        Debug.LogWarning("xp encontrado: " + (xpObj != null));
+
+        var cantidadObj = GameObject.Find("CantidadOrdenadores");
+        Debug.LogWarning("CantidadOrdenadores encontrado: " + (cantidadObj != null));
+
+        StartCoroutine(UpdateMethod());
         StartCoroutine(SumarPuntos());
         enabled = false;
         
     }
 
+    
     // Update is called once per frame
     void Update()
     {
         if ( _initialized == true)
         {
-            InitReferencias();
-            StartCoroutine(UpdateMethod());
+            InitReferenciasRpc();
+            
             _initialized = false;
         }
 
@@ -134,13 +149,15 @@ public class PlayerPCs : NetworkBehaviour
             }
             
         }
-    } 
+    }
 
+    
     IEnumerator UpdateMethod()
     {
         while (true)
         {
             SelectUbicacion();
+            
             HandlePlayerInfo();
             HandleInputs();
             InfectOverTime();
@@ -153,17 +170,13 @@ public class PlayerPCs : NetworkBehaviour
 
     void HandlePlayerInfo()
     {
-        XP_Display.text = "" + xpOrdenaodres;
+        if (XP_Display != null)
+            XP_Display.text = "" + xpOrdenaodres.Value.ToString();
+        if (PC_UI != null)
+            PC_UI.text = "" + cantidadPcsSinPoner.Value.ToString();
+        if (Countries_Display != null)
+            Countries_Display = "" + 
 
-        if ( cantidadPcsSinPoner <= 0)
-        {
-            
-            cantidadPcsSinPoner = 0;
-            
-            PC_UI.text = "" + cantidadPcsSinPoner;
-            return;
-        }
-        
     }
 
     
@@ -182,10 +195,10 @@ public class PlayerPCs : NetworkBehaviour
     {
         if (position == null) Debug.LogWarning("Aqui el error");
         _initialized = true;
-        if (cantidadPcsSinPoner > 0)
+        if (cantidadPcsSinPoner.Value > 0)
         {
-            cantidadPcsSinPoner--;
-            xpOrdenaodres -= 20;
+            cantidadPcsSinPoner.Value--;
+            
             newPC = Instantiate(PC, position, Quaternion.identity);
 
             
@@ -207,18 +220,29 @@ public class PlayerPCs : NetworkBehaviour
 
             connected = GameObject.Find("LineCompound").GetComponent<CreateConnection>();
             placingPC = false;
+
             AddPC(newPC);
             Debug.Log("Esta puesto");
         }
         else return;
 
-       
 
-        if (cantidadPcsSinPoner <= 4)
+
+        if (cantidadPcsSinPoner.Value <= 4)
         {
-            //connected.AddObject(newPC.transform);
+            // connected.AddObject(newPC.transform);
+
+            // Solo resta puntos si NO es la primera vez
+            if (!_firstTimeBuild)
+            {
+                xpOrdenaodres.Value -= 25;
+            }
+            else
+            {
+                _firstTimeBuild = false; // Marca que ya pasó la primera vez
+            }
         }
-        
+
     }
 
 
@@ -232,17 +256,20 @@ public class PlayerPCs : NetworkBehaviour
 
     void AddPC( GameObject pc )
     {
-        OrdenadoresEnJuego.Add( pc );
+        if (IsOwner || IsServer)
+        {
+            OrdenadoresEnJuego.Add(pc);
+            Debug.Log($"PC añadido a jugador {OwnerClientId}. Total: {OrdenadoresEnJuego.Count}");
+        }
     }
 
     //--------------------------------------------------------------------------------
 
-    void GainXP()
+    [Rpc(SendTo.Server)]
+    void GainXPRpc()
     {
-        foreach (GameObject pc in OrdenadoresEnJuego)
-        {
-            xpOrdenaodres += _sumaxp;
-        }
+
+        xpOrdenaodres.Value += _sumaxp * OrdenadoresEnJuego.Count;
     }
 
     private void InfectOverTime()
@@ -265,26 +292,31 @@ public class PlayerPCs : NetworkBehaviour
         while (true) 
         {
             yield return new WaitForSeconds(5f); 
-            GainXP();
+            GainXPRpc();
             
         }
     }
 
-    
+
 
     //---------------------------------------------------------------------------------
-
     public void ComprarHabilidad(MejoraData mejora)
     {
-        if (xpOrdenaodres >= mejora.Cost)
+        ComprarHabilidadServerRpc(mejora.Cost);
+        mejora.Aplicar(this);
+    }
+
+    [Rpc(SendTo.Server)]
+    public void ComprarHabilidadServerRpc(float coste)
+    {
+        if (xpOrdenaodres.Value >= coste)
         {
-            xpOrdenaodres -= mejora.Cost;
-            mejora.Aplicar(this);
+            xpOrdenaodres.Value -= coste;
+            
         }
         else
         {
             Debug.Log("No tienes XP");
-            
         }
     }
 

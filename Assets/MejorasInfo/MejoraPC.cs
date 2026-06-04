@@ -7,6 +7,6 @@ public class MejoraPC : MejoraData
 
     public override void Aplicar(PlayerPCs player)
     {
-        player.cantidadPcsSinPoner += valor;
+        player.cantidadPcsSinPoner.Value += valor;
     }
 }

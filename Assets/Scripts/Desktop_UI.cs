@@ -66,6 +66,11 @@ public class Desktop_UI : NetworkBehaviour
 
         if (_playerRival != null)
             infectadosRival = _playerRival.Peopleinfected;
+
+        if( infectadosRival >= POBLACION_MUNDIAL || infectadosYo >= POBLACION_MUNDIAL)
+        {
+            //AQUI SE TERMINA LA PARTIDA
+        }
     }
 
     private void FindPlayers()
@@ -136,13 +141,13 @@ public class Desktop_UI : NetworkBehaviour
     void FightPVP()
     {
         
-        if ( _playerLocal.xpOrdenaodres < 25)
+        if ( _playerLocal.xpOrdenaodres.Value < 25)
         {
             return;
         } else
         {
             _playerLocal.StartMinigameRpc();
-            _playerLocal.xpOrdenaodres -= 25;
+            _playerLocal.xpOrdenaodres.Value -= 25;
         }
     }
 }

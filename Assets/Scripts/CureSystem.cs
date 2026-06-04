@@ -1,6 +1,7 @@
 using System.Globalization;
 using Unity.Netcode;
 using UnityEngine;
+using TMPro;
 
 public class CureSystem : NetworkBehaviour
 {
@@ -18,6 +19,7 @@ public class CureSystem : NetworkBehaviour
     public int richCountries = 2; // países que investigan fuerte
 
     private PlayerPCs player;
+    [SerializeField] TMP_Text aviso_lose;
 
     private void Awake()
     {
@@ -32,6 +34,13 @@ public class CureSystem : NetworkBehaviour
         cureProgress += delta;
 
         cureProgress = Mathf.Clamp(cureProgress, 0f, 100f);
+        if( cureProgress >= 100)
+        {
+            aviso_lose.enabled = true;
+        }
+
+
+        
     }
 
     float CalculateCureSpeed()

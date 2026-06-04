@@ -25,7 +25,7 @@ public class PC : NetworkBehaviour
 
     private void Awake()
     {
-        map = GameObject.Find("MapManager").GetComponent<MapManager>();
+        //map = GameObject.Find("MapManager").GetComponent<MapManager>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,7 +36,7 @@ public class PC : NetworkBehaviour
         estadoActual = Estados.Bien;
 
         player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerPCs>();
-        map.TryPlacePCRpc(continentName);
+        //map.TryPlacePCRpc(continentName);
        
         /*
         if (!placed)

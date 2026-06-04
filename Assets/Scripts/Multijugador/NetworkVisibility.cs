@@ -55,7 +55,7 @@ public class NetworkVisibility : NetworkBehaviour
         else
         {
             // Este PC es del rival → rojo
-            ApplyVisibility(true, Color.orangeRed);
+            ApplyVisibility(true, Color.orange);
         }
     }
 

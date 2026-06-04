@@ -30,7 +30,7 @@ public class MejoraDisplay : NetworkBehaviour, IPointerClickHandler
         textDisplayDescription.text = "" + mejoraData.Description;
         //------------------------------------------------------------
         player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerPCs>();
-        Debug.Log(" soy " + player.name);
+        
         //------------------------------------------------------------
 
         Highlight.enabled = false;
