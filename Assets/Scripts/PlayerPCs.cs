@@ -29,7 +29,9 @@ public class PlayerPCs : NetworkBehaviour
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
     public float Peoplehacked;
-    public long Peopleinfected;
+    public NetworkVariable<long> Peopleinfected = new NetworkVariable<long>(0,
+    NetworkVariableReadPermission.Everyone,
+    NetworkVariableWritePermission.Server);
     public NetworkVariable<float> peligroHacker = new NetworkVariable<float>(1,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
@@ -175,7 +177,7 @@ public class PlayerPCs : NetworkBehaviour
             SelectUbicacion();
             HandlePlayerInfo();
             HandleInputs();
-            InfectOverTime();
+            InfectOverTimeRpc();
 
             yield return null;
         }                            
@@ -189,7 +191,8 @@ public class PlayerPCs : NetworkBehaviour
             XP_Display.text = "" + xpOrdenaodres.Value.ToString();
         if (PC_UI != null)
             PC_UI.text = "" + cantidadPcsSinPoner.Value.ToString();
-        Debug.Log("AAAAAAAAhh");
+        if (P_Hacked_Display != null)
+            P_Hacked_Display.text = Peopleinfected.Value.ToString();
 
     }
 
@@ -286,7 +289,8 @@ public class PlayerPCs : NetworkBehaviour
         xpOrdenaodres.Value += _sumaxp.Value * OrdenadoresEnJuego.Count;
     }
 
-    private void InfectOverTime()
+    [Rpc(SendTo.Server)]
+    private void InfectOverTimeRpc()
     {
         _infectionTimer += Time.deltaTime;
 
@@ -296,8 +300,8 @@ public class PlayerPCs : NetworkBehaviour
         if (_infectionTimer >= interval)
         {
             _infectionTimer = 0f;
-            ++Peopleinfected;
-            P_Hacked_Display.text = "" + Peopleinfected;
+            ++Peopleinfected.Value;
+            
         }
     }
 

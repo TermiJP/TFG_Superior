@@ -62,10 +62,10 @@ public class Desktop_UI : NetworkBehaviour
             FindPlayers();
 
         if (_playerLocal != null)
-            infectadosYo = _playerLocal.Peopleinfected;
+            infectadosYo = _playerLocal.Peopleinfected.Value;
 
         if (_playerRival != null)
-            infectadosRival = _playerRival.Peopleinfected;
+            infectadosRival = _playerRival.Peopleinfected.Value;
 
         if( infectadosRival >= POBLACION_MUNDIAL || infectadosYo >= POBLACION_MUNDIAL)
         {
@@ -88,7 +88,9 @@ public class Desktop_UI : NetworkBehaviour
                 _playerRival = p;
         }
     }
-    public void AbrirDesktop()
+
+    
+    public void AbrirDesktopRpc()
     {
         if (abierto == false)
         {
@@ -137,17 +139,22 @@ public class Desktop_UI : NetworkBehaviour
             yield return null;
         }
     }
-
     void FightPVP()
     {
-        
-        if ( _playerLocal.xpOrdenaodres.Value < 25)
+        if (_playerLocal.xpOrdenaodres.Value < 25)
         {
+            Debug.Log("No tienes XP suficiente");
             return;
-        } else
-        {
-            _playerLocal.StartMinigameRpc();
-            _playerLocal.xpOrdenaodres.Value -= 25;
         }
+
+        GastarXPServerRpc(25);
+        _playerLocal.StartMinigameRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    public void GastarXPServerRpc(float cantidad)
+    {
+        if (_playerLocal.xpOrdenaodres.Value >= cantidad)
+            _playerLocal.xpOrdenaodres.Value -= cantidad;
     }
 }
