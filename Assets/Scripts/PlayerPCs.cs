@@ -32,7 +32,7 @@ public class PlayerPCs : NetworkBehaviour
     public NetworkVariable<long> Peopleinfected = new NetworkVariable<long>(0,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
-    public NetworkVariable<float> peligroHacker = new NetworkVariable<float>(1,
+    public NetworkVariable<float> peligroHacker = new NetworkVariable<float>(20,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
     public float facilidadhackeo;

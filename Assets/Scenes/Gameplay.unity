@@ -12737,7 +12737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -26797608}
+  m_AnchoredPosition: {x: 0, y: -26828998}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &664738464
@@ -35253,7 +35253,7 @@ MonoBehaviour:
   cureProgress: 0
   peligro: 0
   infectedPercent: 0
-  globalResearchFactor: 0.05
+  globalResearchFactor: 0.03
   hackResistance: 0.2
   richCountries: 2
   aviso_lose: {fileID: 984102025}
