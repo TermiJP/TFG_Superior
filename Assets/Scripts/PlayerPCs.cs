@@ -25,7 +25,7 @@ public class PlayerPCs : NetworkBehaviour
     public NetworkVariable<float> _sumaxp = new NetworkVariable<float>(1,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
-    public NetworkVariable<float> proteccion = new NetworkVariable<float>(1,
+    public NetworkVariable<float> proteccion = new NetworkVariable<float>(0.2f,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
     public float Peoplehacked;
@@ -65,7 +65,7 @@ public class PlayerPCs : NetworkBehaviour
 
     [Header("Reference")]
     [SerializeField] TMP_Text PC_UI;
-    //[SerializeField] TMP_Text PC_TextAd;
+   
     [SerializeField] TMP_Text XP_Display;
     [SerializeField] TMP_Text Countries_Display;
     [SerializeField] TMP_Text P_Hacked_Display;
@@ -85,7 +85,7 @@ public class PlayerPCs : NetworkBehaviour
     private Canvas graphInstance;
     private Canvas wordInstance;
     private Canvas textInstance;
-    //[SerializeField] GameObject timerObj;
+    
 
     public bool _initialized = false;
 

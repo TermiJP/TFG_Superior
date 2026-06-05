@@ -46,8 +46,14 @@ public class MejoraDisplay : NetworkBehaviour, IPointerClickHandler
         switch (eventData.button)
         {
             case PointerEventData.InputButton.Left:
-                ActivarHighlight();
-                Comprar();
+                if( player.xpOrdenaodres.Value >= mejoraData.Cost)
+                {
+                    ActivarHighlight();
+                    Comprar();
+                } else
+                {
+                    return;
+                }
                 break;
             case PointerEventData.InputButton.Right:
                 ActivarRectSell();

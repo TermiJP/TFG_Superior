@@ -2,6 +2,8 @@ using System.Globalization;
 using Unity.Netcode;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CureSystem : NetworkBehaviour
 {
@@ -19,12 +21,15 @@ public class CureSystem : NetworkBehaviour
     public int richCountries = 2; // países que investigan fuerte
 
     private PlayerPCs player;
-    [SerializeField] TMP_Text aviso_lose;
+    [SerializeField] Canvas aviso_lose;
+    [SerializeField] Button exitBottom;
+    
 
     private void Awake()
     {
         player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerPCs>();
-        
+        aviso_lose.enabled = false;
+
     }
 
     void Update()
@@ -36,7 +41,8 @@ public class CureSystem : NetworkBehaviour
         cureProgress = Mathf.Clamp(cureProgress, 0f, 100f);
         if( cureProgress >= 100)
         {
-            //aviso_lose.enabled = true;
+            aviso_lose.enabled = true;
+           
         }
 
 
@@ -46,10 +52,10 @@ public class CureSystem : NetworkBehaviour
     float CalculateCureSpeed()
     {
         // Base por gravedad
-        float peligroFactor = peligro * 0.02f;
+        float peligroFactor = peligro * 0.01f;
 
         // Más infectados = más presión global
-        float infectionFactor = infectedPercent * 0.03f;
+        float infectionFactor = infectedPercent * 0.01f;
 
         // Países ricos aportan más investigación
         float countryFactor = richCountries * 0.1f;
@@ -71,6 +77,11 @@ public class CureSystem : NetworkBehaviour
         peligro = player.peligroHacker.Value;
         infectedPercent = player.Peopleinfected.Value;
         hackResistance = player.proteccion.Value;
+    }
+
+    public void ExitMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
 }

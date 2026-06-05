@@ -7,7 +7,7 @@ public abstract class MejoraData : ScriptableObject
     public Sprite sprite;
     public string NameMejora;
     public int Cost;
-    public int valor;
+    public float valor;
     public TipoMejora tipo;
     public string Description;
 
