@@ -72,17 +72,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPCs
   ShowTopMostFoldoutHeaderGroup: 1
   PC: {fileID: 8141840225521534870, guid: 26dbbbec4fefbf147b150c05ca924f95, type: 3}
-  cantidadPcsSinPoner: 5
-  placingPC: 0
-  xpOrdenaodres: 0
-  _sumaxp: 1
-  proteccion: 0
+  cantidadPcsSinPoner:
+    m_InternalValue: 5
+  xpOrdenaodres:
+    m_InternalValue: 0
+  _sumaxp:
+    m_InternalValue: 1
+  proteccion:
+    m_InternalValue: 1
   Peoplehacked: 0
-  Peopleinfected: 0
-  peligroHacker: 0.2
+  Peopleinfected:
+    m_InternalValue: 0
+  peligroHacker:
+    m_InternalValue: 1
   facilidadhackeo: 0
   OrdenadoresEnJuego: []
   currentState: 0
+  tipos: 0
   PC_UI: {fileID: 0}
   XP_Display: {fileID: 0}
   Countries_Display: {fileID: 0}
@@ -98,5 +104,7 @@ MonoBehaviour:
   window_Word: {fileID: 9022396872954174364, guid: e1da3b6637bf62e4ebd0c87f3e66420e,
     type: 3}
   window_Text: {fileID: 6378931292554027921, guid: 0f640e6bc1a69ab47a213223d0de915d,
+    type: 3}
+  timerObj: {fileID: 8284921878028305205, guid: 2fc7854025e207042bd6223b0916bacb,
     type: 3}
   _initialized: 0

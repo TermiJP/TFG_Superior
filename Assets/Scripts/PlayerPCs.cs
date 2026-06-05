@@ -36,7 +36,7 @@ public class PlayerPCs : NetworkBehaviour
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
     public float facilidadhackeo;
-    
+    public bool minjuegoFinish;
     private float _infectionTimer = 0f;
     public List< GameObject> OrdenadoresEnJuego;
     private bool _firstTimeBuild = true;
@@ -81,7 +81,7 @@ public class PlayerPCs : NetworkBehaviour
     [SerializeField] Canvas window_Graph;
     [SerializeField] Canvas window_Word;
     [SerializeField] Canvas window_Text;
-    
+    [SerializeField] GameObject timerObj;
 
     public bool _initialized = false;
 
@@ -115,7 +115,7 @@ public class PlayerPCs : NetworkBehaviour
         XP_Display = GameObject.Find("xp").GetComponent<TextMeshProUGUI>();
         //Countries_Display = GameObject.Find("countries").GetComponent<TextMeshProUGUI>();
         P_Hacked_Display = GameObject.Find("hacked").GetComponent<TextMeshProUGUI>();
-        timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
+        
 
         //Found_Display = GameObject.Find("found").GetComponent<TextMeshProUGUI>();
         alwaysCanvas = GameObject.Find("ALWAYS_CANVAS").GetComponent<Canvas>();
@@ -398,6 +398,8 @@ public class PlayerPCs : NetworkBehaviour
         Instantiate(window_Graph);
         Instantiate(window_Word);
         Instantiate(window_Text);
+        Instantiate(timerObj);
+        timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
         timerText.enabled = true;
         StartCoroutine(Countdown());
 
@@ -415,9 +417,48 @@ public class PlayerPCs : NetworkBehaviour
 
             yield return new WaitForSeconds(1f);
             tiempoRestante--;
+            if( tiempoRestante <= 0 && minjuegoFinish == true)
+            {
+                Destroy(window_Graph);
+                Destroy(window_Word);
+                Destroy(window_Text);
+            } else if (tiempoRestante <= 0 && minjuegoFinish == false)
+            {
+                FinPartidaServerRpc(false);
+                Destroy(window_Graph);
+                Destroy(window_Word);
+                Destroy(window_Text);
+            }
         }
+
+        
 
         timerText.text = "00:00";
         //Destroy(gameObject);
+    }
+
+    [Rpc(SendTo.Server)]
+    public void FinPartidaServerRpc(bool gane)
+    {
+        // Modifica este jugador
+        xpOrdenaodres.Value += gane ? 50f : -50f;
+
+        // Busca al rival y modifica el suyo
+        foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            if (client.ClientId != OwnerClientId)
+            {
+                PlayerPCs rival = client.PlayerObject.GetComponent<PlayerPCs>();
+                if (rival != null)
+                    rival.xpOrdenaodres.Value += gane ? -50f : 50f;
+            }
+        }
+    }
+
+    [Rpc(SendTo.Server)]
+    public void GastarXPServerRpc(float cantidad)
+    {
+        if (xpOrdenaodres.Value >= cantidad)
+            xpOrdenaodres.Value -= cantidad;
     }
 }

@@ -141,20 +141,12 @@ public class Desktop_UI : NetworkBehaviour
     }
     void FightPVP()
     {
-        if (_playerLocal.xpOrdenaodres.Value < 25)
-        {
-            Debug.Log("No tienes XP suficiente");
-            return;
-        }
+        if (_playerLocal == null) return;
+        if (_playerLocal.xpOrdenaodres.Value < 25) return;
 
-        GastarXPServerRpc(25);
+        _playerLocal.GastarXPServerRpc(25); // Corre en el servidor sobre el PlayerPCs correcto
         _playerLocal.StartMinigameRpc();
     }
 
-    [Rpc(SendTo.Server)]
-    public void GastarXPServerRpc(float cantidad)
-    {
-        if (_playerLocal.xpOrdenaodres.Value >= cantidad)
-            _playerLocal.xpOrdenaodres.Value -= cantidad;
-    }
+
 }
