@@ -14,7 +14,7 @@ public class LobbyManager : NetworkBehaviour
     [SerializeField] private GameObject hostUI;
     [SerializeField] private GameObject clientUI;
     [SerializeField] private GameObject lobbyUI;
-    [SerializeField] private TextMeshProUGUI lobbyCodeText;
+    //[SerializeField] private TextMeshProUGUI lobbyCodeText;
     [SerializeField] private TextMeshProUGUI playerListText;
     [SerializeField] private TMP_InputField joinCodeInput;
     [SerializeField] private Button createButton;
@@ -59,7 +59,7 @@ public class LobbyManager : NetworkBehaviour
         hostUI.SetActive(true);
         lobbyUI.SetActive(false);
         //clientUI.SetActive(false);
-        lobbyCodeText.text = "" + lobbyCode;
+        //lobbyCodeText.text = "" + lobbyCode;
         startButton.gameObject.SetActive(true);
         // Agregar nombre del host a la lista
         //AgregarJugador();

@@ -36,7 +36,7 @@ public class PlayerPCs : NetworkBehaviour
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
     public float facilidadhackeo;
-    public bool minjuegoFinish;
+    public bool minjuegoFinish = false;
     private float _infectionTimer = 0f;
     public List< GameObject> OrdenadoresEnJuego;
     private bool _firstTimeBuild = true;
@@ -81,10 +81,18 @@ public class PlayerPCs : NetworkBehaviour
     [SerializeField] Canvas window_Graph;
     [SerializeField] Canvas window_Word;
     [SerializeField] Canvas window_Text;
-    [SerializeField] GameObject timerObj;
+
+    private Canvas graphInstance;
+    private Canvas wordInstance;
+    private Canvas textInstance;
+    //[SerializeField] GameObject timerObj;
 
     public bool _initialized = false;
 
+    [Header("Audio SFX")]
+    [SerializeField] private AudioClip plantarSFX;
+    [SerializeField] private AudioClip minigameSFX;
+    [SerializeField] private AudioSource audioSource;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -121,6 +129,7 @@ public class PlayerPCs : NetworkBehaviour
         alwaysCanvas = GameObject.Find("ALWAYS_CANVAS").GetComponent<Canvas>();
         hackingWindow = GameObject.Find("Hacking_canvas").GetComponent<Canvas>();
         hackManager = GameObject.Find("VentanaHacking").GetComponent<HackManager>();
+        audioSource = GetComponent<AudioSource>();
 
         var xpObj = GameObject.Find("xp");
         Debug.LogWarning("xp encontrado: " + (xpObj != null));
@@ -215,7 +224,7 @@ public class PlayerPCs : NetworkBehaviour
         if (cantidadPcsSinPoner.Value > 0)
         {
             cantidadPcsSinPoner.Value--;
-            
+            audioSource.PlayOneShot(plantarSFX);
             newPC = Instantiate(PC, position, Quaternion.identity);
 
             
@@ -394,11 +403,10 @@ public class PlayerPCs : NetworkBehaviour
     [Rpc(SendTo.NotOwner)]
     public void StartMinigameRpc()
     {
-
-        Instantiate(window_Graph);
-        Instantiate(window_Word);
-        Instantiate(window_Text);
-        Instantiate(timerObj);
+        audioSource.PlayOneShot(minigameSFX);
+        graphInstance = Instantiate(window_Graph);
+        wordInstance = Instantiate(window_Word);
+        textInstance = Instantiate(window_Text);
         timerText = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
         timerText.enabled = true;
         StartCoroutine(Countdown());
@@ -419,15 +427,15 @@ public class PlayerPCs : NetworkBehaviour
             tiempoRestante--;
             if( tiempoRestante <= 0 && minjuegoFinish == true)
             {
-                Destroy(window_Graph);
-                Destroy(window_Word);
-                Destroy(window_Text);
+                Destroy(graphInstance);
+                Destroy(wordInstance);
+                Destroy(textInstance);
             } else if (tiempoRestante <= 0 && minjuegoFinish == false)
             {
-                FinPartidaServerRpc(false);
-                Destroy(window_Graph);
-                Destroy(window_Word);
-                Destroy(window_Text);
+                FinPartidaServerRpc(true);
+                Destroy(graphInstance);
+                Destroy(wordInstance);
+                Destroy(textInstance);
             }
         }
 
@@ -441,7 +449,7 @@ public class PlayerPCs : NetworkBehaviour
     public void FinPartidaServerRpc(bool gane)
     {
         // Modifica este jugador
-        xpOrdenaodres.Value += gane ? 50f : -50f;
+        xpOrdenaodres.Value += gane ? 20f : -20f;
 
         // Busca al rival y modifica el suyo
         foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
@@ -450,7 +458,7 @@ public class PlayerPCs : NetworkBehaviour
             {
                 PlayerPCs rival = client.PlayerObject.GetComponent<PlayerPCs>();
                 if (rival != null)
-                    rival.xpOrdenaodres.Value += gane ? -50f : 50f;
+                    rival.xpOrdenaodres.Value += gane ? -20f : 20f;
             }
         }
     }

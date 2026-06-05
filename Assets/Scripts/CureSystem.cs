@@ -36,7 +36,7 @@ public class CureSystem : NetworkBehaviour
         cureProgress = Mathf.Clamp(cureProgress, 0f, 100f);
         if( cureProgress >= 100)
         {
-            aviso_lose.enabled = true;
+            //aviso_lose.enabled = true;
         }
 
 
