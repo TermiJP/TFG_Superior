@@ -16,23 +16,23 @@ public class PlayerPCs : NetworkBehaviour
     [ SerializeField ] GameObject PC;
 
     [Header("Datos Player")]
-    public NetworkVariable<float> cantidadPcsSinPoner = new NetworkVariable<float>(5,
+    [SerializeField] public NetworkVariable<float> cantidadPcsSinPoner = new NetworkVariable<float>(5,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
-    public NetworkVariable<float> xpOrdenaodres = new NetworkVariable<float>(0,
+    [SerializeField]public NetworkVariable<float> xpOrdenaodres = new NetworkVariable<float>(0,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
-    public NetworkVariable<float> _sumaxp = new NetworkVariable<float>(1,
+    [SerializeField]public NetworkVariable<float> _sumaxp = new NetworkVariable<float>(1,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
-    public NetworkVariable<float> proteccion = new NetworkVariable<float>(0.2f,
+    [SerializeField]public NetworkVariable<float> proteccion = new NetworkVariable<float>(0.2f,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
     public float Peoplehacked;
-    public NetworkVariable<long> Peopleinfected = new NetworkVariable<long>(0,
+    [SerializeField]public NetworkVariable<long> Peopleinfected = new NetworkVariable<long>(0,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
-    public NetworkVariable<float> peligroHacker = new NetworkVariable<float>(20,
+    [SerializeField]public NetworkVariable<float> peligroHacker = new NetworkVariable<float>(100,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Server);
     public float facilidadhackeo;
@@ -102,7 +102,8 @@ public class PlayerPCs : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-       
+        peligroHacker.Value = 100;
+        proteccion.Value = 0.2f;
 
         if (!IsServer)
         {
@@ -304,7 +305,7 @@ public class PlayerPCs : NetworkBehaviour
         _infectionTimer += Time.deltaTime;
 
         // Cada X segundos infecta una persona nueva
-        float interval = 1f / peligroHacker.Value;
+        float interval = 0.5f / peligroHacker.Value;
 
         if (_infectionTimer >= interval)
         {
