@@ -5,6 +5,7 @@ using TMPro;
 using System.Collections.Generic;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 
 public class LobbyManager : NetworkBehaviour
@@ -53,7 +54,7 @@ public class LobbyManager : NetworkBehaviour
         lobbyCode = Random.Range(1000, 9999).ToString("D4");
 
         // Iniciar como HOST
-        NetworkManager.Singleton.StartHost();
+        //NetworkManager.Singleton.StartHost();
 
         // Mostrar UI del host
         hostUI.SetActive(true);
@@ -64,7 +65,7 @@ public class LobbyManager : NetworkBehaviour
         // Agregar nombre del host a la lista
         //AgregarJugador();
 
-        Debug.Log($" Lobby creado. Código: {lobbyCode}");
+        //Debug.Log($" Lobby creado. Código: {lobbyCode}");
 
         
     }
@@ -82,7 +83,7 @@ public class LobbyManager : NetworkBehaviour
         }
         */
         // Iniciar como CLIENT
-        NetworkManager.Singleton.StartClient();
+        //NetworkManager.Singleton.StartClient();
         
         clientUI.SetActive(true);
         //hostUI.SetActive(false);
@@ -99,22 +100,7 @@ public class LobbyManager : NetworkBehaviour
             return;
         }
 
-        Debug.Log("✓ Iniciando juego...");
-
-         LoadSceneClientRpc();
-    }
-
-    [Rpc(SendTo.Everyone)]
-    private void LoadSceneClientRpc()
-    {
-        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
-
-        foreach (GameObject go in allPlayers)
-        {
-            DontDestroyOnLoad(go.gameObject);
-        }
-
-        SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
     }
 
 
@@ -181,5 +167,16 @@ public class LobbyManager : NetworkBehaviour
         NetworkManager.Singleton.StartClient();
 
         // ¡LISTO! Ahora está conectado al HOST
+    }
+
+    public void ExitMenu()
+    {
+        
+        var menuCanvas = GameObject.Find("Menu").GetComponent<Canvas>();
+        menuCanvas.enabled = true;
+        var lobby = GameObject.Find("LobbyCanvas").GetComponent<Canvas>();
+        lobby.enabled = false;
+        clientUI.SetActive(false);
+        hostUI.SetActive(false);
     }
 }

@@ -52,13 +52,13 @@ public class CureSystem : NetworkBehaviour
     float CalculateCureSpeed()
     {
         // Base por gravedad
-        float peligroFactor = peligro * 0.001f;
+        float peligroFactor = peligro * 0.00001f;
 
         // Más infectados = más presión global
-        float infectionFactor = infectedPercent * 0.001f;
+        float infectionFactor = infectedPercent * 0.00001f;
 
         // Países ricos aportan más investigación
-        float countryFactor = richCountries * 0.02f;
+        float countryFactor = richCountries * 0.002f;
 
         // Suma 
         float baseSpeed = peligroFactor + infectionFactor + countryFactor;

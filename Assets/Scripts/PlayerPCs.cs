@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using Unity.VisualScripting;
+
 using UnityEngine.SceneManagement;
 
 public class PlayerPCs : NetworkBehaviour
@@ -102,7 +102,7 @@ public class PlayerPCs : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        peligroHacker.Value = 100;
+        peligroHacker.Value = 500;
         proteccion.Value = 0.2f;
 
         if (!IsServer)

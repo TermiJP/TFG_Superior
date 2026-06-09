@@ -9,17 +9,23 @@ using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class RelayLobbyManager : MonoBehaviour
 {
+    [SerializeField]TMP_Text nombrePlayer;
+    [SerializeField] TMP_Text codigoSala;
+
+
     async void Start()
     {
         await UnityServices.InitializeAsync();
-
+        nombrePlayer.enabled = false;
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
@@ -69,24 +75,19 @@ public class RelayLobbyManager : MonoBehaviour
         NetworkManager.Singleton.StartHost();
 
         Debug.Log("Lobby creado: " + lobby.LobbyCode);
-
+        codigoSala.text = "" + lobby.LobbyCode;
         return lobby.LobbyCode;
     }
 
     // CLIENTE
     public async Task JoinLobby(string lobbyCode)
     {
-        Lobby lobby =
-            await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode);
-
+        Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode);
         string joinCode = lobby.Data["joinCode"].Value;
 
-        JoinAllocation allocation =
-            await RelayService.Instance.JoinAllocationAsync(joinCode);
+        JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
-        UnityTransport transport =
-            NetworkManager.Singleton.GetComponent<UnityTransport>();
-
+        UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         transport.SetClientRelayData(
             allocation.RelayServer.IpV4,
             (ushort)allocation.RelayServer.Port,
@@ -96,12 +97,23 @@ public class RelayLobbyManager : MonoBehaviour
             allocation.HostConnectionData
         );
 
+        nombrePlayer.enabled = true;
+        // Suscribirse ANTES de StartClient
+        NetworkManager.Singleton.OnClientConnectedCallback += (clientId) =>
+        {
+            Debug.Log("Cliente aprobado por el host, ID: " + clientId);
+        };
+
+        NetworkManager.Singleton.OnClientDisconnectCallback += (clientId) =>
+        {
+            Debug.Log("Cliente DESCONECTADO, ID: " + clientId +
+                      " Reason: " + NetworkManager.Singleton.DisconnectReason);
+        };
+
+        
         NetworkManager.Singleton.StartClient();
-
-        // activa la sincronización de escenas
-        NetworkManager.Singleton.SceneManager.OnLoad += OnSceneLoad;
-
         Debug.Log("Cliente conectado");
+        
     }
 
     private void OnSceneLoad(ulong clientId, string sceneName,LoadSceneMode loadSceneMode,AsyncOperation asyncOperation)
@@ -113,10 +125,18 @@ public class RelayLobbyManager : MonoBehaviour
     {
         if (NetworkManager.Singleton.IsHost)
         {
-            NetworkManager.Singleton.SceneManager.LoadScene(
-                "Game",
-                LoadSceneMode.Single
-            );
+            StartCoroutine(LoadWhenReady());
         }
+    }
+
+    private IEnumerator LoadWhenReady()
+    {
+        yield return new WaitUntil(() =>
+            NetworkManager.Singleton.ConnectedClients.Count >= 2
+        );
+
+        yield return new WaitForSeconds(0.5f);
+
+        NetworkManager.Singleton.SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 }

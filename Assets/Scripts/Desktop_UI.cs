@@ -44,11 +44,12 @@ public class Desktop_UI : NetworkBehaviour
     private PlayerPCs _playerRival;
 
     [SerializeField] private Button figthButton;
-
+    [SerializeField] Canvas win_cancas;
 
     private void Start()
     {
         canvas.enabled = false;
+        win_cancas.enabled = false;
         _curesystem = GameObject.Find("CureSystem").GetComponent<CureSystem>();
         figthButton.onClick.AddListener(FightPVP);
         FindPlayers();
@@ -70,6 +71,7 @@ public class Desktop_UI : NetworkBehaviour
         if( infectadosRival >= POBLACION_MUNDIAL || infectadosYo >= POBLACION_MUNDIAL)
         {
             //AQUI SE TERMINA LA PARTIDA
+            win_cancas.enabled = true;
         }
     }
 

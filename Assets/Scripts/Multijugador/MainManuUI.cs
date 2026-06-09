@@ -21,8 +21,5 @@ public class MainMenuUI : MonoBehaviour
         await manager.JoinLobby(codeInput.text);
     }
 
-    public void StartMatch()
-    {
-        manager.StartGame();
-    }
+   
 }
